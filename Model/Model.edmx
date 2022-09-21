@@ -1,0 +1,1063 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CommitmentDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ActivityLog">
+          <Key>
+            <PropertyRef Name="log_id" />
+          </Key>
+          <Property Name="log_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="action_name" Type="varchar" MaxLength="250" />
+          <Property Name="action_description" Type="varchar" MaxLength="250" />
+          <Property Name="log_date" Type="datetime" />
+          <Property Name="userId" Type="int" />
+        </EntityType>
+        <EntityType Name="AlertRequestBackup">
+          <Key>
+            <PropertyRef Name="backup_id" />
+          </Key>
+          <Property Name="case_id" Type="int" />
+          <Property Name="userId" Type="int" />
+          <Property Name="start_date" Type="date" />
+          <Property Name="end_date" Type="date" />
+          <Property Name="due date" Type="date" />
+          <Property Name="alert_frequence" Type="varchar" MaxLength="20" />
+          <Property Name="alert_frequence_periodicity" Type="varchar" MaxLength="20" />
+          <Property Name="action_frequence" Type="varchar" MaxLength="20" />
+          <Property Name="alert_action_periodicity" Type="varchar" MaxLength="20" />
+          <Property Name="status" Type="bit" />
+          <Property Name="executed_by" Type="int" Nullable="false" />
+          <Property Name="decisions" Type="text" />
+          <Property Name="decision_id" Type="int" Nullable="false" />
+          <Property Name="due_date_action" Type="date" />
+          <Property Name="end_date_action" Type="date" />
+          <Property Name="application_id" Type="varchar" MaxLength="100" />
+          <Property Name="triggered_date" Type="date" />
+          <Property Name="created_at" Type="date" />
+          <Property Name="backup_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AlertRequestNew">
+          <Key>
+            <PropertyRef Name="case_id" />
+          </Key>
+          <Property Name="case_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="start_date" Type="date" />
+          <Property Name="end_date" Type="date" />
+          <Property Name="due date" Type="date" />
+          <Property Name="alert_frequence" Type="varchar" MaxLength="20" />
+          <Property Name="alert_frequence_periodicity" Type="varchar" MaxLength="20" />
+          <Property Name="action_frequence" Type="varchar" MaxLength="20" />
+          <Property Name="alert_action_periodicity" Type="varchar" MaxLength="20" />
+          <Property Name="status" Type="bit" />
+          <Property Name="executed_by" Type="int" Nullable="false" />
+          <Property Name="decisions" Type="text" />
+          <Property Name="decision_id" Type="int" Nullable="false" />
+          <Property Name="due_date_action" Type="date" />
+          <Property Name="end_date_action" Type="date" />
+          <Property Name="application_id" Type="varchar" MaxLength="100" />
+          <Property Name="triggered_date" Type="date" />
+          <Property Name="created_at" Type="date" />
+        </EntityType>
+        <EntityType Name="Branches">
+          <Key>
+            <PropertyRef Name="bra_code" />
+          </Key>
+          <Property Name="bra_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bra_name" Type="varchar" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="Decision">
+          <Key>
+            <PropertyRef Name="decision_id" />
+          </Key>
+          <Property Name="decision_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="decision_desc" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="doc_id" />
+          </Key>
+          <Property Name="doc_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="doc_path" Type="varchar" MaxLength="250" />
+          <Property Name="doc_description" Type="varchar" MaxLength="250" />
+          <Property Name="doc_comment" Type="text" />
+          <Property Name="upload_date" Type="date" />
+          <Property Name="uploaded_by" Type="int" Nullable="false" />
+          <Property Name="report_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GestionnaireReport">
+          <Key>
+            <PropertyRef Name="report_id" />
+          </Key>
+          <Property Name="report_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="report_file_path" Type="varchar" MaxLength="200" />
+          <Property Name="upload_date" Type="datetime" />
+          <Property Name="userId" Type="int" />
+          <Property Name="comment" Type="text" />
+          <Property Name="status" Type="int" />
+          <Property Name="case_id" Type="int" />
+          <Property Name="report_description" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="LoanApplication">
+          <Key>
+            <PropertyRef Name="application_id" />
+          </Key>
+          <Property Name="application_id" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="loan_name" Type="varchar" MaxLength="100" />
+          <Property Name="loan_description" Type="varchar" MaxLength="120" />
+          <Property Name="loan_type_desc" Type="varchar" MaxLength="120" />
+          <Property Name="mode_payment" Type="varchar" MaxLength="120" />
+          <Property Name="loan_amount" Type="varchar" MaxLength="50" />
+          <Property Name="loan_date" Type="datetime" />
+          <Property Name="purpose" Type="varchar" MaxLength="50" />
+          <Property Name="loan_status" Type="bit" />
+          <Property Name="remarks" Type="varchar" MaxLength="250" />
+          <Property Name="processed_by" Type="varchar" MaxLength="250" />
+          <Property Name="customer_no" Type="int" />
+          <Property Name="customer_fullname" Type="varchar" MaxLength="150" />
+          <Property Name="loan_period" Type="date" />
+          <Property Name="loan_rate" Type="varchar" MaxLength="10" />
+          <Property Name="financing_code" Type="int" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_description" Type="varchar" MaxLength="100" />
+          <Property Name="isActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="financing_code" />
+          </Key>
+          <Property Name="financing_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="financing_type_name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="100" />
+          <Property Name="password" Type="varchar" MaxLength="100" />
+          <Property Name="first_name" Type="varchar" MaxLength="150" />
+          <Property Name="last_name" Type="varchar" MaxLength="80" />
+          <Property Name="email" Type="varchar" MaxLength="80" />
+          <Property Name="created_at" Type="varchar" MaxLength="100" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="role_id" Type="int" />
+          <Property Name="responsable_fullname" Type="varchar" MaxLength="250" />
+          <Property Name="responsable_email" Type="varchar" MaxLength="100" />
+          <Property Name="bra_code" Type="int" />
+        </EntityType>
+        <Association Name="FK__AlertRequ__appli__1F98B2C1">
+          <End Role="LoanApplication" Type="Self.LoanApplication" Multiplicity="0..1" />
+          <End Role="AlertRequestNew" Type="Self.AlertRequestNew" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoanApplication">
+              <PropertyRef Name="application_id" />
+            </Principal>
+            <Dependent Role="AlertRequestNew">
+              <PropertyRef Name="application_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AlertRequ__userI__0A9D95DB">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="AlertRequestNew" Type="Self.AlertRequestNew" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="AlertRequestNew">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Document__report__17F790F9">
+          <End Role="GestionnaireReport" Type="Self.GestionnaireReport" Multiplicity="1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GestionnaireReport">
+              <PropertyRef Name="report_id" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="report_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Document__upload__17036CC0">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="uploaded_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Gestionna__case___1332DBDC">
+          <End Role="AlertRequestNew" Type="Self.AlertRequestNew" Multiplicity="0..1" />
+          <End Role="GestionnaireReport" Type="Self.GestionnaireReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AlertRequestNew">
+              <PropertyRef Name="case_id" />
+            </Principal>
+            <Dependent Role="GestionnaireReport">
+              <PropertyRef Name="case_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Gestionna__userI__5AEE82B9">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="GestionnaireReport" Type="Self.GestionnaireReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="GestionnaireReport">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LoanAppli__finan__245D67DE">
+          <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+          <End Role="LoanApplication" Type="Self.LoanApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="financing_code" />
+            </Principal>
+            <Dependent Role="LoanApplication">
+              <PropertyRef Name="financing_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AlertRequestNew_Decisions">
+          <End Role="Decision" Type="Self.Decision" Multiplicity="1" />
+          <End Role="AlertRequestNew" Type="Self.AlertRequestNew" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Decision">
+              <PropertyRef Name="decision_id" />
+            </Principal>
+            <Dependent Role="AlertRequestNew">
+              <PropertyRef Name="decision_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_log_UserProfile">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="ActivityLog" Type="Self.ActivityLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="ActivityLog">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserProfile_Branches">
+          <End Role="Branches" Type="Self.Branches" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="bra_code" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="bra_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserProfile_executed_by">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="AlertRequestNew" Type="Self.AlertRequestNew" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="AlertRequestNew">
+              <PropertyRef Name="executed_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserProfile_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="FetchAccountOfficerHistoric" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="status" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="FetchHistoric" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="FetchHistoricByPeriod" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start_date" Type="varchar" Mode="In" />
+          <Parameter Name="end_date" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="FetchRequests" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="CommitmentDBModelStoreContainer">
+          <EntitySet Name="ActivityLog" EntityType="Self.ActivityLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AlertRequestBackup" EntityType="Self.AlertRequestBackup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AlertRequestNew" EntityType="Self.AlertRequestNew" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Branches" EntityType="Self.Branches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Decision" EntityType="Self.Decision" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GestionnaireReport" EntityType="Self.GestionnaireReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoanApplication" EntityType="Self.LoanApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AlertRequ__appli__1F98B2C1" Association="Self.FK__AlertRequ__appli__1F98B2C1">
+            <End Role="LoanApplication" EntitySet="LoanApplication" />
+            <End Role="AlertRequestNew" EntitySet="AlertRequestNew" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AlertRequ__userI__0A9D95DB" Association="Self.FK__AlertRequ__userI__0A9D95DB">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="AlertRequestNew" EntitySet="AlertRequestNew" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Document__report__17F790F9" Association="Self.FK__Document__report__17F790F9">
+            <End Role="GestionnaireReport" EntitySet="GestionnaireReport" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Document__upload__17036CC0" Association="Self.FK__Document__upload__17036CC0">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Gestionna__case___1332DBDC" Association="Self.FK__Gestionna__case___1332DBDC">
+            <End Role="AlertRequestNew" EntitySet="AlertRequestNew" />
+            <End Role="GestionnaireReport" EntitySet="GestionnaireReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Gestionna__userI__5AEE82B9" Association="Self.FK__Gestionna__userI__5AEE82B9">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="GestionnaireReport" EntitySet="GestionnaireReport" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LoanAppli__finan__245D67DE" Association="Self.FK__LoanAppli__finan__245D67DE">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="LoanApplication" EntitySet="LoanApplication" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AlertRequestNew_Decisions" Association="Self.fk_AlertRequestNew_Decisions">
+            <End Role="Decision" EntitySet="Decision" />
+            <End Role="AlertRequestNew" EntitySet="AlertRequestNew" />
+          </AssociationSet>
+          <AssociationSet Name="fk_log_UserProfile" Association="Self.fk_log_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="ActivityLog" EntitySet="ActivityLog" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserProfile_Branches" Association="Self.fk_UserProfile_Branches">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserProfile_executed_by" Association="Self.fk_UserProfile_executed_by">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="AlertRequestNew" EntitySet="AlertRequestNew" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserProfile_Roles" Association="Self.fk_UserProfile_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CommitmentDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ActivityLog">
+          <Key>
+            <PropertyRef Name="log_id" />
+          </Key>
+          <Property Name="log_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="action_name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="action_description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="log_date" Type="DateTime" Precision="3" />
+          <Property Name="userId" Type="Int32" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.fk_log_UserProfile" FromRole="ActivityLog" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="AlertRequest">
+          <Key>
+            <PropertyRef Name="case_id" />
+          </Key>
+          <Property Name="case_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="start_date" Type="DateTime" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Precision="0" />
+          <Property Name="due_date" Type="DateTime" Precision="0" />
+          <Property Name="alert_frequence" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="alert_frequence_periodicity" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="action_frequence" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="alert_action_periodicity" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="executed_by" Type="Int32" Nullable="false" />
+          <Property Name="decisions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="decision_id" Type="Int32" Nullable="false" />
+          <Property Name="due_date_action" Type="DateTime" Precision="0" />
+          <Property Name="end_date_action" Type="DateTime" Precision="0" />
+          <Property Name="application_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="triggered_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="LoanApplication" Relationship="Self.FK__AlertRequ__appli__1F98B2C1" FromRole="AlertRequestNew" ToRole="LoanApplication" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__AlertRequ__userI__0A9D95DB" FromRole="AlertRequestNew" ToRole="UserProfile" />
+          <NavigationProperty Name="GestionnaireReports" Relationship="Self.FK__Gestionna__case___1332DBDC" FromRole="AlertRequestNew" ToRole="GestionnaireReport" />
+          <NavigationProperty Name="Decision" Relationship="Self.fk_AlertRequestNew_Decisions" FromRole="AlertRequestNew" ToRole="Decision" />
+          <NavigationProperty Name="UserProfile1" Relationship="Self.fk_UserProfile_executed_by" FromRole="AlertRequestNew" ToRole="UserProfile" />
+          <Property Name="created_at" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="bra_code" />
+          </Key>
+          <Property Name="bra_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bra_name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserProfiles" Relationship="Self.fk_UserProfile_Branches" FromRole="Branches" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="Decision">
+          <Key>
+            <PropertyRef Name="decision_id" />
+          </Key>
+          <Property Name="decision_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="decision_desc" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AlertRequestNews" Relationship="Self.fk_AlertRequestNew_Decisions" FromRole="Decision" ToRole="AlertRequestNew" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="doc_id" />
+          </Key>
+          <Property Name="doc_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="doc_path" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="doc_description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="doc_comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="upload_date" Type="DateTime" Precision="0" />
+          <Property Name="uploaded_by" Type="Int32" Nullable="false" />
+          <Property Name="report_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GestionnaireReport" Relationship="Self.FK__Document__report__17F790F9" FromRole="Document" ToRole="GestionnaireReport" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__Document__upload__17036CC0" FromRole="Document" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="GestionnaireReport">
+          <Key>
+            <PropertyRef Name="report_id" />
+          </Key>
+          <Property Name="report_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="report_file_path" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="upload_date" Type="DateTime" Precision="3" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="case_id" Type="Int32" />
+          <Property Name="report_description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AlertRequestNew" Relationship="Self.FK__Gestionna__case___1332DBDC" FromRole="GestionnaireReport" ToRole="AlertRequestNew" />
+          <NavigationProperty Name="Documents" Relationship="Self.FK__Document__report__17F790F9" FromRole="GestionnaireReport" ToRole="Document" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__Gestionna__userI__5AEE82B9" FromRole="GestionnaireReport" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="LoanApplication">
+          <Key>
+            <PropertyRef Name="application_id" />
+          </Key>
+          <Property Name="application_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="loan_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="loan_description" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="loan_type_desc" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="mode_payment" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="loan_amount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="loan_date" Type="DateTime" Precision="3" />
+          <Property Name="purpose" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="loan_status" Type="Boolean" />
+          <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="processed_by" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="customer_no" Type="Int32" />
+          <Property Name="customer_fullname" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="loan_period" Type="DateTime" Precision="0" />
+          <Property Name="loan_rate" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="financing_code" Type="Int32" />
+          <NavigationProperty Name="AlertRequestNews" Relationship="Self.FK__AlertRequ__appli__1F98B2C1" FromRole="LoanApplication" ToRole="AlertRequestNew" />
+          <NavigationProperty Name="Type" Relationship="Self.FK__LoanAppli__finan__245D67DE" FromRole="LoanApplication" ToRole="Type" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="Boolean" />
+          <NavigationProperty Name="UserProfiles" Relationship="Self.fk_UserProfile_Roles" FromRole="Roles" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="financing_code" />
+          </Key>
+          <Property Name="financing_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="financing_type_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LoanApplications" Relationship="Self.FK__LoanAppli__finan__245D67DE" FromRole="Type" ToRole="LoanApplication" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="first_name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="role_id" Type="Int32" />
+          <Property Name="responsable_fullname" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="responsable_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="bra_code" Type="Int32" />
+          <NavigationProperty Name="ActivityLogs" Relationship="Self.fk_log_UserProfile" FromRole="UserProfile" ToRole="ActivityLog" />
+          <NavigationProperty Name="AlertRequestNews" Relationship="Self.FK__AlertRequ__userI__0A9D95DB" FromRole="UserProfile" ToRole="AlertRequestNew" />
+          <NavigationProperty Name="AlertRequestNews1" Relationship="Self.fk_UserProfile_executed_by" FromRole="UserProfile" ToRole="AlertRequestNew" />
+          <NavigationProperty Name="Branch" Relationship="Self.fk_UserProfile_Branches" FromRole="UserProfile" ToRole="Branches" />
+          <NavigationProperty Name="Documents" Relationship="Self.FK__Document__upload__17036CC0" FromRole="UserProfile" ToRole="Document" />
+          <NavigationProperty Name="GestionnaireReports" Relationship="Self.FK__Gestionna__userI__5AEE82B9" FromRole="UserProfile" ToRole="GestionnaireReport" />
+          <NavigationProperty Name="Role" Relationship="Self.fk_UserProfile_Roles" FromRole="UserProfile" ToRole="Roles" />
+        </EntityType>
+        <Association Name="fk_log_UserProfile">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="ActivityLog" Type="Self.ActivityLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="ActivityLog">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AlertRequ__appli__1F98B2C1">
+          <End Role="LoanApplication" Type="Self.LoanApplication" Multiplicity="0..1" />
+          <End Role="AlertRequestNew" Type="CommitmentDBModel.AlertRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoanApplication">
+              <PropertyRef Name="application_id" />
+            </Principal>
+            <Dependent Role="AlertRequestNew">
+              <PropertyRef Name="application_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AlertRequ__userI__0A9D95DB">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="AlertRequestNew" Type="CommitmentDBModel.AlertRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="AlertRequestNew">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Gestionna__case___1332DBDC">
+          <End Role="AlertRequestNew" Type="CommitmentDBModel.AlertRequest" Multiplicity="0..1" />
+          <End Role="GestionnaireReport" Type="Self.GestionnaireReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AlertRequestNew">
+              <PropertyRef Name="case_id" />
+            </Principal>
+            <Dependent Role="GestionnaireReport">
+              <PropertyRef Name="case_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_AlertRequestNew_Decisions">
+          <End Role="Decision" Type="Self.Decision" Multiplicity="1" />
+          <End Role="AlertRequestNew" Type="CommitmentDBModel.AlertRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Decision">
+              <PropertyRef Name="decision_id" />
+            </Principal>
+            <Dependent Role="AlertRequestNew">
+              <PropertyRef Name="decision_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserProfile_executed_by">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="AlertRequestNew" Type="CommitmentDBModel.AlertRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="AlertRequestNew">
+              <PropertyRef Name="executed_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserProfile_Branches">
+          <End Role="Branches" Type="Self.Branch" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branches">
+              <PropertyRef Name="bra_code" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="bra_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Document__report__17F790F9">
+          <End Role="GestionnaireReport" Type="Self.GestionnaireReport" Multiplicity="1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GestionnaireReport">
+              <PropertyRef Name="report_id" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="report_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Document__upload__17036CC0">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Document" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="uploaded_by" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Gestionna__userI__5AEE82B9">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="GestionnaireReport" Type="Self.GestionnaireReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="GestionnaireReport">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LoanAppli__finan__245D67DE">
+          <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+          <End Role="LoanApplication" Type="Self.LoanApplication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="financing_code" />
+            </Principal>
+            <Dependent Role="LoanApplication">
+              <PropertyRef Name="financing_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserProfile_Roles">
+          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CommitmentDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ActivityLogs" EntityType="Self.ActivityLog" />
+          <EntitySet Name="AlertRequests" EntityType="CommitmentDBModel.AlertRequest" />
+          <EntitySet Name="Branches" EntityType="Self.Branch" />
+          <EntitySet Name="Decisions" EntityType="Self.Decision" />
+          <EntitySet Name="Documents" EntityType="Self.Document" />
+          <EntitySet Name="GestionnaireReports" EntityType="Self.GestionnaireReport" />
+          <EntitySet Name="LoanApplications" EntityType="Self.LoanApplication" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Types" EntityType="Self.Type" />
+          <EntitySet Name="UserProfiles" EntityType="Self.UserProfile" />
+          <AssociationSet Name="fk_log_UserProfile" Association="Self.fk_log_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="ActivityLog" EntitySet="ActivityLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AlertRequ__appli__1F98B2C1" Association="Self.FK__AlertRequ__appli__1F98B2C1">
+            <End Role="LoanApplication" EntitySet="LoanApplications" />
+            <End Role="AlertRequestNew" EntitySet="AlertRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AlertRequ__userI__0A9D95DB" Association="Self.FK__AlertRequ__userI__0A9D95DB">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="AlertRequestNew" EntitySet="AlertRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Gestionna__case___1332DBDC" Association="Self.FK__Gestionna__case___1332DBDC">
+            <End Role="AlertRequestNew" EntitySet="AlertRequests" />
+            <End Role="GestionnaireReport" EntitySet="GestionnaireReports" />
+          </AssociationSet>
+          <AssociationSet Name="fk_AlertRequestNew_Decisions" Association="Self.fk_AlertRequestNew_Decisions">
+            <End Role="Decision" EntitySet="Decisions" />
+            <End Role="AlertRequestNew" EntitySet="AlertRequests" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserProfile_executed_by" Association="Self.fk_UserProfile_executed_by">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="AlertRequestNew" EntitySet="AlertRequests" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserProfile_Branches" Association="Self.fk_UserProfile_Branches">
+            <End Role="Branches" EntitySet="Branches" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Document__report__17F790F9" Association="Self.FK__Document__report__17F790F9">
+            <End Role="GestionnaireReport" EntitySet="GestionnaireReports" />
+            <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Document__upload__17036CC0" Association="Self.FK__Document__upload__17036CC0">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Gestionna__userI__5AEE82B9" Association="Self.FK__Gestionna__userI__5AEE82B9">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="GestionnaireReport" EntitySet="GestionnaireReports" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LoanAppli__finan__245D67DE" Association="Self.FK__LoanAppli__finan__245D67DE">
+            <End Role="Type" EntitySet="Types" />
+            <End Role="LoanApplication" EntitySet="LoanApplications" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserProfile_Roles" Association="Self.fk_UserProfile_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <FunctionImport Name="FetchAccountOfficerHistoric" ReturnType="Collection(CommitmentDBModel.FetchAccountOfficerHistoric_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="status" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="FetchHistoric" ReturnType="Collection(CommitmentDBModel.FetchHistoric_Result)" />
+          <FunctionImport Name="FetchHistoricByPeriod" ReturnType="Collection(CommitmentDBModel.FetchHistoricByPeriod_Result)">
+            <Parameter Name="start_date" Mode="In" Type="String" />
+            <Parameter Name="end_date" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="FetchRequests" ReturnType="Collection(CommitmentDBModel.FetchRequests_Result)" />
+          <EntitySet Name="AlertRequestBackups" EntityType="CommitmentDBModel.AlertRequestBackup" />
+        </EntityContainer>
+        <ComplexType Name="FetchAccountOfficerHistoric_Result">
+          <Property Type="String" Name="first_name" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="last_name" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="loan_amount" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="decision_desc" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="financing_type_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="decisions" Nullable="true" MaxLength="Max" />
+          <Property Type="DateTime" Name="due_date_action" Nullable="true" />
+          <Property Type="DateTime" Name="end_date_action" Nullable="true" />
+          <Property Type="String" Name="action_frequence" Nullable="false" MaxLength="48" />
+        </ComplexType>
+        <ComplexType Name="FetchHistoric_Result">
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="String" Name="username" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="80" />
+          <Property Type="Int32" Name="TotalRequest" Nullable="true" />
+          <Property Type="Int32" Name="Approved" Nullable="true" />
+          <Property Type="Int32" Name="Rejected" Nullable="true" />
+          <Property Type="Int32" Name="LateProcess" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="FetchHistoricByPeriod_Result">
+          <Property Type="Int32" Name="userId" Nullable="false" />
+          <Property Type="String" Name="username" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="80" />
+          <Property Type="Int32" Name="TotalRequest" Nullable="true" />
+          <Property Type="Int32" Name="Approved" Nullable="true" />
+          <Property Type="Int32" Name="Rejected" Nullable="true" />
+          <Property Type="Int32" Name="LateProcess" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="FetchRequests_Result">
+          <Property Type="DateTime" Name="start_date" Nullable="true" />
+          <Property Type="DateTime" Name="end_date" Nullable="true" />
+          <Property Type="String" Name="alert_frequence" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="alert_frequence_periodicity" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="decisions" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="fullname" Nullable="false" MaxLength="231" />
+          <Property Type="String" Name="email" Nullable="true" MaxLength="80" />
+          <Property Type="String" Name="responsable_email" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="tracking_officer" Nullable="true" MaxLength="231" />
+          <Property Type="String" Name="decision_desc" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="financing_type_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="loan_description" Nullable="true" MaxLength="120" />
+          <Property Type="String" Name="loan_amount" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="customer_no" Nullable="true" />
+          <Property Type="String" Name="customer_fullname" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="case_id" Nullable="false" />
+          </ComplexType>
+        <EntityType Name="AlertRequestBackup">
+          <Key>
+            <PropertyRef Name="backup_id" />
+          </Key>
+          <Property Name="case_id" Type="Int32" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="start_date" Type="DateTime" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Precision="0" />
+          <Property Name="due_date" Type="DateTime" Precision="0" />
+          <Property Name="alert_frequence" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="alert_frequence_periodicity" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="action_frequence" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="alert_action_periodicity" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="executed_by" Type="Int32" Nullable="false" />
+          <Property Name="decisions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="decision_id" Type="Int32" Nullable="false" />
+          <Property Name="due_date_action" Type="DateTime" Precision="0" />
+          <Property Name="end_date_action" Type="DateTime" Precision="0" />
+          <Property Name="application_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="triggered_date" Type="DateTime" Precision="0" />
+          <Property Name="created_at" Type="DateTime" Precision="0" />
+          <Property Name="backup_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CommitmentDBModelStoreContainer" CdmEntityContainer="CommitmentDBEntities">
+          <EntitySetMapping Name="ActivityLogs">
+            <EntityTypeMapping TypeName="CommitmentDBModel.ActivityLog">
+              <MappingFragment StoreEntitySet="ActivityLog">
+                <ScalarProperty Name="log_id" ColumnName="log_id" />
+                <ScalarProperty Name="action_name" ColumnName="action_name" />
+                <ScalarProperty Name="action_description" ColumnName="action_description" />
+                <ScalarProperty Name="log_date" ColumnName="log_date" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlertRequests">
+            <EntityTypeMapping TypeName="CommitmentDBModel.AlertRequest">
+              <MappingFragment StoreEntitySet="AlertRequestNew">
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="case_id" ColumnName="case_id" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="due_date" ColumnName="due date" />
+                <ScalarProperty Name="alert_frequence" ColumnName="alert_frequence" />
+                <ScalarProperty Name="alert_frequence_periodicity" ColumnName="alert_frequence_periodicity" />
+                <ScalarProperty Name="action_frequence" ColumnName="action_frequence" />
+                <ScalarProperty Name="alert_action_periodicity" ColumnName="alert_action_periodicity" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="executed_by" ColumnName="executed_by" />
+                <ScalarProperty Name="decisions" ColumnName="decisions" />
+                <ScalarProperty Name="decision_id" ColumnName="decision_id" />
+                <ScalarProperty Name="due_date_action" ColumnName="due_date_action" />
+                <ScalarProperty Name="end_date_action" ColumnName="end_date_action" />
+                <ScalarProperty Name="application_id" ColumnName="application_id" />
+                <ScalarProperty Name="triggered_date" ColumnName="triggered_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="CommitmentDBModel.Branch">
+              <MappingFragment StoreEntitySet="Branches">
+                <ScalarProperty Name="bra_code" ColumnName="bra_code" />
+                <ScalarProperty Name="bra_name" ColumnName="bra_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Decisions">
+            <EntityTypeMapping TypeName="CommitmentDBModel.Decision">
+              <MappingFragment StoreEntitySet="Decision">
+                <ScalarProperty Name="decision_id" ColumnName="decision_id" />
+                <ScalarProperty Name="decision_desc" ColumnName="decision_desc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="CommitmentDBModel.Document">
+              <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="doc_id" ColumnName="doc_id" />
+                <ScalarProperty Name="doc_path" ColumnName="doc_path" />
+                <ScalarProperty Name="doc_description" ColumnName="doc_description" />
+                <ScalarProperty Name="doc_comment" ColumnName="doc_comment" />
+                <ScalarProperty Name="upload_date" ColumnName="upload_date" />
+                <ScalarProperty Name="uploaded_by" ColumnName="uploaded_by" />
+                <ScalarProperty Name="report_id" ColumnName="report_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GestionnaireReports">
+            <EntityTypeMapping TypeName="CommitmentDBModel.GestionnaireReport">
+              <MappingFragment StoreEntitySet="GestionnaireReport">
+                <ScalarProperty Name="report_id" ColumnName="report_id" />
+                <ScalarProperty Name="report_file_path" ColumnName="report_file_path" />
+                <ScalarProperty Name="upload_date" ColumnName="upload_date" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="case_id" ColumnName="case_id" />
+                <ScalarProperty Name="report_description" ColumnName="report_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoanApplications">
+            <EntityTypeMapping TypeName="CommitmentDBModel.LoanApplication">
+              <MappingFragment StoreEntitySet="LoanApplication">
+                <ScalarProperty Name="application_id" ColumnName="application_id" />
+                <ScalarProperty Name="loan_name" ColumnName="loan_name" />
+                <ScalarProperty Name="loan_description" ColumnName="loan_description" />
+                <ScalarProperty Name="loan_type_desc" ColumnName="loan_type_desc" />
+                <ScalarProperty Name="mode_payment" ColumnName="mode_payment" />
+                <ScalarProperty Name="loan_amount" ColumnName="loan_amount" />
+                <ScalarProperty Name="loan_date" ColumnName="loan_date" />
+                <ScalarProperty Name="purpose" ColumnName="purpose" />
+                <ScalarProperty Name="loan_status" ColumnName="loan_status" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="processed_by" ColumnName="processed_by" />
+                <ScalarProperty Name="customer_no" ColumnName="customer_no" />
+                <ScalarProperty Name="customer_fullname" ColumnName="customer_fullname" />
+                <ScalarProperty Name="loan_period" ColumnName="loan_period" />
+                <ScalarProperty Name="loan_rate" ColumnName="loan_rate" />
+                <ScalarProperty Name="financing_code" ColumnName="financing_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="CommitmentDBModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="role_description" ColumnName="role_description" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types">
+            <EntityTypeMapping TypeName="CommitmentDBModel.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="financing_code" ColumnName="financing_code" />
+                <ScalarProperty Name="financing_type_name" ColumnName="financing_type_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="CommitmentDBModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="responsable_fullname" ColumnName="responsable_fullname" />
+                <ScalarProperty Name="responsable_email" ColumnName="responsable_email" />
+                <ScalarProperty Name="bra_code" ColumnName="bra_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="FetchAccountOfficerHistoric" FunctionName="CommitmentDBModel.Store.FetchAccountOfficerHistoric">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommitmentDBModel.FetchAccountOfficerHistoric_Result">
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="loan_amount" ColumnName="loan_amount" />
+                <ScalarProperty Name="decision_desc" ColumnName="decision_desc" />
+                <ScalarProperty Name="financing_type_name" ColumnName="financing_type_name" />
+                <ScalarProperty Name="decisions" ColumnName="decisions" />
+                <ScalarProperty Name="due_date_action" ColumnName="due_date_action" />
+                <ScalarProperty Name="end_date_action" ColumnName="end_date_action" />
+                <ScalarProperty Name="action_frequence" ColumnName="action_frequence" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FetchHistoric" FunctionName="CommitmentDBModel.Store.FetchHistoric">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommitmentDBModel.FetchHistoric_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="TotalRequest" ColumnName="TotalRequest" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="Rejected" ColumnName="Rejected" />
+                <ScalarProperty Name="LateProcess" ColumnName="LateProcess" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FetchHistoricByPeriod" FunctionName="CommitmentDBModel.Store.FetchHistoricByPeriod">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommitmentDBModel.FetchHistoricByPeriod_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="TotalRequest" ColumnName="TotalRequest" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="Rejected" ColumnName="Rejected" />
+                <ScalarProperty Name="LateProcess" ColumnName="LateProcess" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FetchRequests" FunctionName="CommitmentDBModel.Store.FetchRequests">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommitmentDBModel.FetchRequests_Result">
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="alert_frequence" ColumnName="alert_frequence" />
+                <ScalarProperty Name="alert_frequence_periodicity" ColumnName="alert_frequence_periodicity" />
+                <ScalarProperty Name="decisions" ColumnName="decisions" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="responsable_email" ColumnName="responsable_email" />
+                <ScalarProperty Name="tracking_officer" ColumnName="tracking_officer" />
+                <ScalarProperty Name="decision_desc" ColumnName="decision_desc" />
+                <ScalarProperty Name="financing_type_name" ColumnName="financing_type_name" />
+                <ScalarProperty Name="loan_description" ColumnName="loan_description" />
+                <ScalarProperty Name="loan_amount" ColumnName="loan_amount" />
+                <ScalarProperty Name="customer_no" ColumnName="customer_no" />
+                <ScalarProperty Name="customer_fullname" ColumnName="customer_fullname" />
+                <ScalarProperty Name="case_id" ColumnName="case_id" />
+                </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="AlertRequestBackups">
+            <EntityTypeMapping TypeName="CommitmentDBModel.AlertRequestBackup">
+              <MappingFragment StoreEntitySet="AlertRequestBackup">
+                <ScalarProperty Name="backup_id" ColumnName="backup_id" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="triggered_date" ColumnName="triggered_date" />
+                <ScalarProperty Name="application_id" ColumnName="application_id" />
+                <ScalarProperty Name="end_date_action" ColumnName="end_date_action" />
+                <ScalarProperty Name="due_date_action" ColumnName="due_date_action" />
+                <ScalarProperty Name="decision_id" ColumnName="decision_id" />
+                <ScalarProperty Name="decisions" ColumnName="decisions" />
+                <ScalarProperty Name="executed_by" ColumnName="executed_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="alert_action_periodicity" ColumnName="alert_action_periodicity" />
+                <ScalarProperty Name="action_frequence" ColumnName="action_frequence" />
+                <ScalarProperty Name="alert_frequence_periodicity" ColumnName="alert_frequence_periodicity" />
+                <ScalarProperty Name="alert_frequence" ColumnName="alert_frequence" />
+                <ScalarProperty Name="due_date" ColumnName="due date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="case_id" ColumnName="case_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3aa2868ac6b141e5952f2d0f4bfd615d" Name="Diagram1">
+        <EntityTypeShape EntityType="CommitmentDBModel.ActivityLog" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CommitmentDBModel.AlertRequest" Width="1.5" PointX="8.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CommitmentDBModel.Branch" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CommitmentDBModel.Decision" Width="1.5" PointX="6" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CommitmentDBModel.Document" Width="1.5" PointX="12.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CommitmentDBModel.GestionnaireReport" Width="1.5" PointX="10.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CommitmentDBModel.LoanApplication" Width="1.5" PointX="6" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CommitmentDBModel.Role" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CommitmentDBModel.Type" Width="1.5" PointX="3.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CommitmentDBModel.UserProfile" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <AssociationConnector Association="CommitmentDBModel.fk_log_UserProfile" ManuallyRouted="false" />
+        <AssociationConnector Association="CommitmentDBModel.FK__AlertRequ__appli__1F98B2C1" ManuallyRouted="false" />
+        <AssociationConnector Association="CommitmentDBModel.FK__AlertRequ__userI__0A9D95DB" ManuallyRouted="false" />
+        <AssociationConnector Association="CommitmentDBModel.FK__Gestionna__case___1332DBDC" ManuallyRouted="false" />
+        <AssociationConnector Association="CommitmentDBModel.fk_AlertRequestNew_Decisions" ManuallyRouted="false" />
+        <AssociationConnector Association="CommitmentDBModel.fk_UserProfile_executed_by" ManuallyRouted="false" />
+        <AssociationConnector Association="CommitmentDBModel.fk_UserProfile_Branches" ManuallyRouted="false" />
+        <AssociationConnector Association="CommitmentDBModel.FK__Document__report__17F790F9" ManuallyRouted="false" />
+        <AssociationConnector Association="CommitmentDBModel.FK__Document__upload__17036CC0" ManuallyRouted="false" />
+        <AssociationConnector Association="CommitmentDBModel.FK__Gestionna__userI__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="CommitmentDBModel.FK__LoanAppli__finan__245D67DE" ManuallyRouted="false" />
+        <AssociationConnector Association="CommitmentDBModel.fk_UserProfile_Roles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CommitmentDBModel.AlertRequestBackup" Width="1.5" PointX="0.75" PointY="8.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
