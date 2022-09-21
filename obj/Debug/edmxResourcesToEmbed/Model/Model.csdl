@@ -363,6 +363,7 @@
     </FunctionImport>
     <FunctionImport Name="FetchRequests" ReturnType="Collection(CommitmentDBModel.FetchRequests_Result)" />
     <EntitySet Name="AlertRequestBackups" EntityType="CommitmentDBModel.AlertRequestBackup" />
+    <EntitySet Name="EmailSents" EntityType="CommitmentDBModel.EmailSent" />
   </EntityContainer>
   <ComplexType Name="FetchAccountOfficerHistoric_Result">
     <Property Type="String" Name="first_name" Nullable="true" MaxLength="150" />
@@ -402,7 +403,6 @@
     <Property Type="String" Name="fullname" Nullable="false" MaxLength="231" />
     <Property Type="String" Name="email" Nullable="true" MaxLength="80" />
     <Property Type="String" Name="responsable_email" Nullable="true" MaxLength="100" />
-    <Property Type="String" Name="tracking_officer" Nullable="true" MaxLength="231" />
     <Property Type="String" Name="decision_desc" Nullable="true" MaxLength="250" />
     <Property Type="String" Name="financing_type_name" Nullable="true" MaxLength="100" />
     <Property Type="String" Name="loan_description" Nullable="true" MaxLength="120" />
@@ -434,5 +434,28 @@
     <Property Name="triggered_date" Type="DateTime" Precision="0" />
     <Property Name="created_at" Type="DateTime" Precision="0" />
     <Property Name="backup_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="EmailSent">
+    <Key>
+      <PropertyRef Name="email_id" />
+    </Key>
+    <Property Name="email_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="start_date" Type="DateTime" Precision="0" />
+    <Property Name="end_date" Type="DateTime" Precision="0" />
+    <Property Name="alert_frequence" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="alert_frequence_periodicity" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="decisions" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="fullname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="responsable_email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="tracking_officer" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="decision_desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="financing_type_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="loan_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="loan_amount" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="customer_no" Type="Int32" />
+    <Property Name="customer_fullname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="case_id" Type="Int32" />
+    <Property Name="sent_date" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>

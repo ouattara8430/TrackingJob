@@ -10,9 +10,11 @@
 namespace TrackingJob.Model
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class FetchRequests_Result
+    public partial class EmailSent
     {
+        public int email_id { get; set; }
         public Nullable<System.DateTime> start_date { get; set; }
         public Nullable<System.DateTime> end_date { get; set; }
         public string alert_frequence { get; set; }
@@ -21,12 +23,14 @@ namespace TrackingJob.Model
         public string fullname { get; set; }
         public string email { get; set; }
         public string responsable_email { get; set; }
+        public string tracking_officer { get; set; }
         public string decision_desc { get; set; }
         public string financing_type_name { get; set; }
         public string loan_description { get; set; }
         public string loan_amount { get; set; }
         public Nullable<int> customer_no { get; set; }
         public string customer_fullname { get; set; }
-        public int case_id { get; set; }
+        public Nullable<int> case_id { get; set; }
+        public Nullable<System.DateTime> sent_date { get; set; }
     }
 }

@@ -8,8 +8,10 @@ namespace TrackingJob.Model
 {
     class Request
     {
-        public string start_date { get; set; }
-        public string end_date { get; set; }
+        //public string start_date { get; set; }
+        public DateTime? start_date { get; set; }
+        //public string end_date { get; set; }
+        public DateTime? end_date { get; set; }
         public string alert_frequence { get; set; }
         public string alert_frequence_periodicity { get; set; }
         public string decisions { get; set; }
@@ -21,7 +23,7 @@ namespace TrackingJob.Model
         public string financing_type_name { get; set; }
         public string loan_description { get; set; }
         public string loan_amount { get; set; }
-        public int customer_no { get; set; }
+        public int? customer_no { get; set; }
         public string customer_fullname { get; set; }
         public int case_id { get; set; }
     }

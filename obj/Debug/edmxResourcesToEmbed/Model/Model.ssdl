@@ -83,6 +83,29 @@
     <Property Name="uploaded_by" Type="int" Nullable="false" />
     <Property Name="report_id" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="EmailSent">
+    <Key>
+      <PropertyRef Name="email_id" />
+    </Key>
+    <Property Name="email_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="start_date" Type="date" />
+    <Property Name="end_date" Type="date" />
+    <Property Name="alert_frequence" Type="varchar" MaxLength="200" />
+    <Property Name="alert_frequence_periodicity" Type="varchar" MaxLength="200" />
+    <Property Name="decisions" Type="varchar" MaxLength="200" />
+    <Property Name="fullname" Type="varchar" MaxLength="200" />
+    <Property Name="email" Type="varchar" MaxLength="200" />
+    <Property Name="responsable_email" Type="varchar" MaxLength="200" />
+    <Property Name="tracking_officer" Type="varchar" MaxLength="200" />
+    <Property Name="decision_desc" Type="varchar" MaxLength="200" />
+    <Property Name="financing_type_name" Type="varchar" MaxLength="200" />
+    <Property Name="loan_description" Type="varchar" MaxLength="200" />
+    <Property Name="loan_amount" Type="varchar" MaxLength="200" />
+    <Property Name="customer_no" Type="int" />
+    <Property Name="customer_fullname" Type="varchar" MaxLength="200" />
+    <Property Name="case_id" Type="int" />
+    <Property Name="sent_date" Type="datetime" />
+  </EntityType>
   <EntityType Name="GestionnaireReport">
     <Key>
       <PropertyRef Name="report_id" />
@@ -310,6 +333,7 @@
     <EntitySet Name="Branches" EntityType="Self.Branches" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Decision" EntityType="Self.Decision" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmailSent" EntityType="Self.EmailSent" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GestionnaireReport" EntityType="Self.GestionnaireReport" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LoanApplication" EntityType="Self.LoanApplication" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />

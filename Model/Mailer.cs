@@ -11,7 +11,7 @@ namespace TrackingJob.Model
     class Mailer
     {
         // send email with attachment
-        public static string SendEmailWIthAttachment ( string to, string subject, string message )
+        public static string SendEmail ( string to, string subject, string message )
         {
             try {
                 string from_password = string.Empty;
@@ -21,20 +21,20 @@ namespace TrackingJob.Model
                 from = ConfigurationManager.AppSettings["emailFrom"].ToString();
                 from_password = ConfigurationManager.AppSettings["from_password"].ToString();
 
-                SmtpClient mailServer = new SmtpClient( "smtp.gmail.com", port );
-                mailServer.UseDefaultCredentials = false;
-                mailServer.EnableSsl = true;
+                //SmtpClient mailServer = new SmtpClient( "smtp.gmail.com", port );
+                //mailServer.UseDefaultCredentials = false;
+                //mailServer.EnableSsl = true;
 
-                mailServer.Credentials = new System.Net.NetworkCredential( from, from_password );
+                //mailServer.Credentials = new System.Net.NetworkCredential( from, from_password );
 
 
 
-                MailMessage msg = new MailMessage( from, to );
-                msg.Subject = subject;
-                msg.Body = message;
-                //msg.Attachments.Add( new Attachment( "D:\\myfile.txt" ) );
-                mailServer.Send( msg );
-                return "Email sent from " + from + " to " + to;
+                //MailMessage msg = new MailMessage( from, to );
+                //msg.Subject = subject;
+                //msg.Body = message;
+                ////msg.Attachments.Add( new Attachment( "D:\\myfile.txt" ) );
+                //mailServer.Send( msg );
+                return "Email sent to " + to;
             }
             catch ( Exception ex ) {
                 Console.WriteLine( "Unable to send email. Error : " + ex );

@@ -188,7 +188,6 @@
           <ScalarProperty Name="fullname" ColumnName="fullname" />
           <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="responsable_email" ColumnName="responsable_email" />
-          <ScalarProperty Name="tracking_officer" ColumnName="tracking_officer" />
           <ScalarProperty Name="decision_desc" ColumnName="decision_desc" />
           <ScalarProperty Name="financing_type_name" ColumnName="financing_type_name" />
           <ScalarProperty Name="loan_description" ColumnName="loan_description" />
@@ -221,6 +220,30 @@
           <ScalarProperty Name="start_date" ColumnName="start_date" />
           <ScalarProperty Name="userId" ColumnName="userId" />
           <ScalarProperty Name="case_id" ColumnName="case_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmailSents">
+      <EntityTypeMapping TypeName="CommitmentDBModel.EmailSent">
+        <MappingFragment StoreEntitySet="EmailSent">
+          <ScalarProperty Name="sent_date" ColumnName="sent_date" />
+          <ScalarProperty Name="case_id" ColumnName="case_id" />
+          <ScalarProperty Name="customer_fullname" ColumnName="customer_fullname" />
+          <ScalarProperty Name="customer_no" ColumnName="customer_no" />
+          <ScalarProperty Name="loan_amount" ColumnName="loan_amount" />
+          <ScalarProperty Name="loan_description" ColumnName="loan_description" />
+          <ScalarProperty Name="financing_type_name" ColumnName="financing_type_name" />
+          <ScalarProperty Name="decision_desc" ColumnName="decision_desc" />
+          <ScalarProperty Name="tracking_officer" ColumnName="tracking_officer" />
+          <ScalarProperty Name="responsable_email" ColumnName="responsable_email" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="decisions" ColumnName="decisions" />
+          <ScalarProperty Name="alert_frequence_periodicity" ColumnName="alert_frequence_periodicity" />
+          <ScalarProperty Name="alert_frequence" ColumnName="alert_frequence" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="email_id" ColumnName="email_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

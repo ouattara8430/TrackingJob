@@ -38,6 +38,7 @@ namespace TrackingJob.Model
         public virtual DbSet<Type> Types { get; set; }
         public virtual DbSet<UserProfile> UserProfiles { get; set; }
         public virtual DbSet<AlertRequestBackup> AlertRequestBackups { get; set; }
+        public virtual DbSet<EmailSent> EmailSents { get; set; }
     
         public virtual ObjectResult<FetchAccountOfficerHistoric_Result> FetchAccountOfficerHistoric(Nullable<int> userId, string status)
         {

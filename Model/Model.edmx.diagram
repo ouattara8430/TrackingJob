@@ -28,6 +28,7 @@
         <AssociationConnector Association="CommitmentDBModel.FK__LoanAppli__finan__245D67DE" ManuallyRouted="false" />
         <AssociationConnector Association="CommitmentDBModel.fk_UserProfile_Roles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="CommitmentDBModel.AlertRequestBackup" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="CommitmentDBModel.EmailSent" Width="1.5" PointX="8.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

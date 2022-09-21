@@ -90,6 +90,9 @@
     <Compile Include="Model\Document.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\EmailSent.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\FetchAccountOfficerHistoric_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
