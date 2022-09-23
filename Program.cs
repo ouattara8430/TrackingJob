@@ -17,34 +17,35 @@ namespace TrackingJob
         static void Main ( string[] args )
         {
             Worker worker = new Worker();
-            Thread t = new Thread( worker.DoWork );
-            t.IsBackground = true;
-            t.Start();
+            //Thread t = new Thread( worker.DoWork );
+            //t.IsBackground = true;
+            //t.Start();
 
-            while ( true ) {
+            //while ( true ) {
 
-                worker.GenerateNewRequest();
-                worker.SendAlertToAccountOfficer();
-            }
-            t.Join();
-            //SendAlertToAccountOfficer();
+            //    worker.Run();
+            //}
+            //t.Join();
+            worker.SendNotificationToCustomers();
         }
 
-        
+
 
         // check whether the alert date happens
-        
+
     }
 
     class Worker
     {
         public bool KeepGoing { get; set; }
 
+        // constructor
         public Worker ()
         {
             KeepGoing = true;
         }
 
+        // do work
         public void DoWork ()
         {
             while ( KeepGoing ) {
@@ -67,7 +68,7 @@ namespace TrackingJob
 
             int frequence = 0;
 
-            while ( KeepGoing ) {
+            //while ( KeepGoing ) {
                 // run without stop condition
                 List<AlertRequest> requests = AlertRepo.getRepetitiveRequests();
 
@@ -77,8 +78,10 @@ namespace TrackingJob
                         if ( request.alert_action_periodicity != "" ) {
                             switch ( request.alert_action_periodicity ) {
                                 case "Jour":
-                                    try {
-                                        frequence = Int32.Parse( request.action_frequence );
+                                try {
+                                    // log information
+                                    LogAction.LogWrite( "Request details => \n" + "Case ID: " + request.case_id + "\nAction Period: " + request.alert_action_periodicity + "\nAction frequence: " + request.action_frequence + "\nTriggered date: " + request.triggered_date + "\nCurrent date: " + current_date.AddDays( frequence ) + "\nAction end date: " + request.end_date_action );
+                                    frequence = Int32.Parse( request.action_frequence );
                                         // check whether the request has already been used 
                                         // fetch data from used request using the id
                                         if ( request.triggered_date.Value.Year.Equals( current_date.Year ) ) {
@@ -117,20 +120,32 @@ namespace TrackingJob
 
                                                             if ( save ) {
                                                                 AlertRepo.SaveOriginalRequest( request );
-                                                                LogWriter.LogWrite( "Action: Request generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
+                                                                LogAction.LogWrite( "Action: Request generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
                                                                 Console.WriteLine( "Request generated for the year " + request.triggered_date.Value.Year + " - " + "due date action: " + request.due_date_action + " - " + "end date action: " + request.end_date_action );
                                                             }
                                                             else {
-                                                                LogWriter.LogWrite( "Action: Request not generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
+                                                                LogAction.LogWrite( "Action: Request not generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
                                                                 Console.WriteLine( "Aucune requete a generer pour cette annee" );
                                                             }
                                                         }
 
                                                     }
-                                                }
+                                                    else {
+                                                        Console.WriteLine( "la condition du jour d'execution n'est pas satisfaite " );
+                                                    }
+                                            }
+                                            else {
+                                                Console.WriteLine( "la condition du jour de declenchement n'est pas satisfaite pour l'execution" );
                                             }
                                         }
+                                        else {
+                                            Console.WriteLine( "la condition du mois de declenchement n'est pas satisfaite pour l'execution" );
+                                        }
                                     }
+                                    else {
+                                        Console.WriteLine( "la condition de l'annee de declenchement n'est pas satisfaite pour l'execution" );
+                                    }
+                                }
                                     catch ( Exception ex ) {
                                         ErrorLog.LogWrite( "Error message: " + ex.Message );
                                     }
@@ -138,7 +153,9 @@ namespace TrackingJob
 
                                 case "Semaine":
                                     try {
-                                        int week = 7;
+                                    // log information
+                                    LogAction.LogWrite( "Request details => \n" + "Case ID: " + request.case_id + "\nAction Period: " + request.alert_action_periodicity + "\nAction frequence: " + request.action_frequence + "\nTriggered date: " + request.triggered_date + "\nCurrent date: " + current_date.AddDays( frequence ) + "\nAction end date: " + request.end_date_action );
+                                    int week = 7;
                                         frequence = Int32.Parse( request.action_frequence );
                                         int days = frequence * week;
 
@@ -176,20 +193,32 @@ namespace TrackingJob
 
                                                             if ( saved ) {
                                                                 AlertRepo.SaveOriginalRequest( request );
-                                                                LogWriter.LogWrite( "Action: Request generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
+                                                                LogAction.LogWrite( "Action: Request generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
                                                                 Console.WriteLine( "Request generated for the year " + request.triggered_date.Value.Year + " - " + "due date action: " + request.due_date_action + " - " + "end date action: " + request.end_date_action );
                                                             }
                                                             else {
-                                                                LogWriter.LogWrite( "Action: Request not generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
+                                                                LogAction.LogWrite( "Action: Request not generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
                                                                 Console.WriteLine( "Aucune requete a generer pour cette annee" );
                                                             }
                                                         }
 
                                                     }
+                                                else {
+                                                    Console.WriteLine( "la condition du jour d'execution n'est pas satisfaite " );
                                                 }
                                             }
+                                            else {
+                                                Console.WriteLine( "la condition du jour de declenchement n'est pas satisfaite pour l'execution" );
+                                            }
+                                        }
+                                        else {
+                                            Console.WriteLine( "la condition du mois de declenchement n'est pas satisfaite pour l'execution" );
                                         }
                                     }
+                                    else {
+                                        Console.WriteLine( "la condition de l'annee de declenchement n'est pas satisfaite pour l'execution" );
+                                    }
+                                }
                                     catch ( Exception ex ) {
                                         ErrorLog.LogWrite( "Error message: " + ex.Message );
                                     }
@@ -197,7 +226,9 @@ namespace TrackingJob
 
                                 case "Mois":
                                     try {
-                                        frequence = Int32.Parse( request.action_frequence );
+                                    // log information
+                                    LogAction.LogWrite( "Request details => \n" + "Case ID: " + request.case_id + "\nAction Period: " + request.alert_action_periodicity + "\nAction frequence: " + request.action_frequence + "\nTriggered date: " + request.triggered_date + "\nCurrent date: " + current_date.AddDays( frequence ) + "\nAction end date: " + request.end_date_action );
+                                    frequence = Int32.Parse( request.action_frequence );
 
                                         if ( request.triggered_date.Value.Year.Equals( current_date.Year ) ) {
                                             if ( request.triggered_date.Value.Month.Equals( current_date.Month ) ) {
@@ -232,20 +263,32 @@ namespace TrackingJob
 
                                                             if ( saved ) {
                                                                 AlertRepo.SaveOriginalRequest( request );
-                                                                LogWriter.LogWrite( "Action: Request generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
+                                                                LogAction.LogWrite( "Action: Request generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
                                                                 Console.WriteLine( "Request generated for the year " + request.triggered_date.Value.Year + " - " + "due date action: " + request.due_date_action + " - " + "end date action: " + request.end_date_action );
                                                             }
                                                             else {
-                                                                LogWriter.LogWrite( "Action: Request not generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
+                                                                LogAction.LogWrite( "Action: Request not generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
                                                                 Console.WriteLine( "Aucune requete a generer pour cette annee" );
                                                             }
                                                         }
 
                                                     }
+                                                else {
+                                                    Console.WriteLine( "la condition du jour d'execution n'est pas satisfaite " );
                                                 }
                                             }
+                                            else {
+                                                Console.WriteLine( "la condition du jour de declenchement n'est pas satisfaite pour l'execution" );
+                                            }
+                                        }
+                                        else {
+                                            Console.WriteLine( "la condition du mois de declenchement n'est pas satisfaite pour l'execution" );
                                         }
                                     }
+                                    else {
+                                        Console.WriteLine( "la condition de l'annee de declenchement n'est pas satisfaite pour l'execution" );
+                                    }
+                                }
                                     catch ( Exception ex ) {
                                         ErrorLog.LogWrite( "Error message: " + ex.Message );
                                     }
@@ -253,7 +296,9 @@ namespace TrackingJob
 
                                 case "Annee":
                                     try {
-                                        frequence = Int32.Parse( request.action_frequence );
+                                    // log information
+                                    LogAction.LogWrite( "Request details => \n" + "Case ID: " + request.case_id + "\nAction Period: " + request.alert_action_periodicity + "\nAction frequence: " + request.action_frequence + "\nTriggered date: " + request.triggered_date + "\nCurrent date: " + current_date.AddDays( frequence ) + "\nAction end date: " + request.end_date_action );
+                                    frequence = Int32.Parse( request.action_frequence );
 
                                         // check whether triggered date is equal to current date
                                         if ( request.triggered_date.Value.Year.Equals( current_date.Year ) ) {
@@ -290,21 +335,33 @@ namespace TrackingJob
 
                                                             if ( saved ) {
                                                                 AlertRepo.SaveOriginalRequest( request );
-                                                                LogWriter.LogWrite( "Action: Request generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
+                                                                LogAction.LogWrite( "Action: Request generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
                                                                 Console.WriteLine( "Request generated for the year " + request.triggered_date.Value.Year + " - " + "due date action: " + request.due_date_action + " - " + "end date action: " + request.end_date_action );
                                                             }
                                                             else {
-                                                                LogWriter.LogWrite( "Action: Request not generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
+                                                                LogAction.LogWrite( "Action: Request not generated: \n" + "Case ID: " + request.case_id + "\nTriggered Date: " + request.triggered_date + "\nEnd Action date: " + request.end_date_action + "\n" );
                                                                 Console.WriteLine( "Aucune requete a generer pour cette annee" );
                                                             }
                                                         }
 
                                                     }
+                                                else {
+                                                    Console.WriteLine( "la condition du jour d'execution n'est pas satisfaite " );
                                                 }
                                             }
+                                            else {
+                                                Console.WriteLine( "la condition du jour de declenchement n'est pas satisfaite pour l'execution" );
+                                            }
                                         }
-
+                                        else {
+                                            Console.WriteLine( "la condition du mois de declenchement n'est pas satisfaite pour l'execution" );
+                                        }
                                     }
+                                    else {
+                                        Console.WriteLine( "la condition de l'annee de declenchement n'est pas satisfaite pour l'execution" );
+                                    }
+
+                                }
                                     catch ( Exception ex ) {
                                         ErrorLog.LogWrite( "Error message: " + ex.Message );
                                     }
@@ -321,10 +378,10 @@ namespace TrackingJob
                     Console.WriteLine( "Pas de donnees pour cette date" );
                 }
 
-                Thread.Sleep( 200 );
-            }
+            //    Thread.Sleep( 200 );
+            //}
 
-            Console.ReadLine();
+            //Console.ReadLine();
 
         }
 
@@ -371,134 +428,154 @@ namespace TrackingJob
                     // check the frequence
                     switch ( request.alert_frequence_periodicity ) {
                         case "Jour":
+                            try {
+                                // log information
+                                LogAlert.LogWrite( "Alert details => \n" + "Case ID: " + request.case_id + "\nStart date: " + request.start_date + "\nEnd date: " + request.end_date + "\nLoan type: " + request.financing_type_name + "\nCurrent date: " + current_date + "\nFrequence: " + request.alert_frequence + "\nPeriod: " + request.alert_frequence_periodicity );
+                                //DateTime dateVal = DateTime.ParseExact( request.start_date, "yyyy-MM-dd", culture );
+                                DateTime dateVal = ( DateTime ) request.start_date;
+                                frequence = Int32.Parse( request.alert_frequence );
 
-                            //DateTime dateVal = DateTime.ParseExact( request.start_date, "yyyy-MM-dd", culture );
-                            DateTime dateVal = ( DateTime ) request.start_date;
-                            frequence = Int32.Parse( request.alert_frequence );
+                                // check whether the mail has been already sent for the day
+                                //if ( AlertRepo.HasEmailBeenSent( request.case_id, request.financing_type_name, request.customer_no, DateTime.ParseExact( request.start_date, "yyyy-MM-dd", culture ), request.end_date ) ) {
+                                if ( AlertRepo.HasEmailBeenSent( request.case_id, request.financing_type_name, request.customer_no ?? 0, request.start_date, request.end_date ) ) {
+                                    Console.WriteLine( "Email has already been sent to " + request.email );
+                                }
+                                else {
+                                    // fetch the request whose detail has been logged and the current date is now
 
-                            // check whether the mail has been already sent for the day
-                            //if ( AlertRepo.HasEmailBeenSent( request.case_id, request.financing_type_name, request.customer_no, DateTime.ParseExact( request.start_date, "yyyy-MM-dd", culture ), request.end_date ) ) {
-                            if ( AlertRepo.HasEmailBeenSent( request.case_id, request.financing_type_name, request.customer_no ?? 0, request.start_date, request.end_date ) ) {
-                                Console.WriteLine( "Email has already been sent to " + request.email );
-                            }
-                            else {
-                                // fetch the request whose detail has been logged and the current date is now
+                                    if ( dateVal == current_date && dateVal <= request.end_date ) {
+                                        // send email to account officer
+                                        //SendEmail ( string to, string subject, string message )
+                                        string mail = Mailer.SendEmail( "gnougo2009@gmail.com", "SUIVI DES ENGAGEMENTS", request.decisions );
+                                        //if ( mail.Equals( mail ) ) {
+                                        if ( true ) {
 
-                                if ( dateVal == current_date && dateVal <= request.end_date ) {
-                                    // send email to account officer
-                                    //SendEmail ( string to, string subject, string message )
-                                    string mail = Mailer.SendEmail( "gnougo2009@gmail.com", "SUIVI DES ENGAGEMENTS", request.decisions );
-                                    //if ( mail.Equals( mail ) ) {
-                                    if ( true ) {
+                                            LogAlert.LogWrite( "Email sent successfully to " + request.fullname + " with the following email: " + request.email + " at " + DateTime.Now );
+                                            // log email info
+                                            AlertRepo.SaveEmailInfoAFterEmailSent( request );
 
-                                        LogWriter.LogWrite( "Email sent successfully to " + request.fullname + " with the following email: " + request.email + " at " + DateTime.Now );
-                                        // log email info
-                                        AlertRepo.SaveEmailInfoAFterEmailSent( request );
-
-                                        // update
-                                        bool updated = AlertRepo.UpdateRequest( request.case_id, dateVal.AddDays( frequence ) );
-                                        if ( updated ) {
-                                            Console.WriteLine( "Frequence jour effectuee avec succes" );
+                                            // update
+                                            bool updated = AlertRepo.UpdateRequest( request.case_id, dateVal.AddDays( frequence ) );
+                                            if ( updated ) {
+                                                Console.WriteLine( "Frequence jour effectuee avec succes" );
+                                            }
                                         }
                                     }
                                 }
+                            } catch(Exception ex ) {
+                                ErrorLog.LogWrite( "Error message: " + ex.Message );
                             }
                             break;
                         case "Semaine":
+                            try {
+                                // log information
+                                LogAlert.LogWrite( "Alert details => \n" + "Case ID: " + request.case_id + "\nStart date: " + request.start_date + "\nEnd date: " + request.end_date + "\nLoan type: " + request.financing_type_name + "\nCurrent date: " + current_date + "\nFrequence: " + request.alert_frequence + "\nPeriod: " + request.alert_frequence_periodicity );
+                                int week = 7;
+                                DateTime dateVal_w = ( DateTime ) request.start_date;
+                                frequence = Int32.Parse( request.alert_frequence );
+                                int days = frequence * week;
 
-                            int week = 7;
-                            DateTime dateVal_w = ( DateTime ) request.start_date;
-                            frequence = Int32.Parse( request.alert_frequence );
-                            int days = frequence * week;
+                                // check whether the mail has been already sent for the day
+                                if ( AlertRepo.HasEmailBeenSent( request.case_id, request.financing_type_name, request.customer_no ?? 0, request.start_date, request.end_date ) ) {
+                                    Console.WriteLine( "Email has already been sent to " + request.email );
+                                }
+                                else {
+                                    // fetch the request whose detail has been logged and the current date is now
 
-                            // check whether the mail has been already sent for the day
-                            if ( AlertRepo.HasEmailBeenSent( request.case_id, request.financing_type_name, request.customer_no ?? 0, request.start_date, request.end_date ) ) {
-                                Console.WriteLine( "Email has already been sent to " + request.email );
-                            }
-                            else {
-                                // fetch the request whose detail has been logged and the current date is now
+                                    if ( dateVal_w == current_date && dateVal_w <= request.end_date ) {
+                                        // send email to account officer
+                                        //SendEmail ( string to, string subject, string message )
+                                        string mail = Mailer.SendEmail( "gnougo2009@gmail.com", "SUIVI DES ENGAGEMENTS", request.decisions );
+                                        //if ( mail.Equals( mail ) ) {
+                                        if ( true ) {
+                                            LogAlert.LogWrite( "Email sent successfully to " + request.fullname + " with the following email: " + request.email + " at " + DateTime.Now );
+                                            // log email info
+                                            AlertRepo.SaveEmailInfoAFterEmailSent( request );
 
-                                if ( dateVal_w == current_date && dateVal_w <= request.end_date ) {
-                                    // send email to account officer
-                                    //SendEmail ( string to, string subject, string message )
-                                    string mail = Mailer.SendEmail( "gnougo2009@gmail.com", "SUIVI DES ENGAGEMENTS", request.decisions );
-                                    //if ( mail.Equals( mail ) ) {
-                                    if ( true ) {
-                                        LogWriter.LogWrite( "Email sent successfully to " + request.fullname + " with the following email: " + request.email + " at " + DateTime.Now );
-                                        // log email info
-                                        AlertRepo.SaveEmailInfoAFterEmailSent( request );
-
-                                        // update
-                                        bool updated = AlertRepo.UpdateRequest( request.case_id, dateVal_w.AddDays( days ) );
-                                        if ( updated ) {
-                                            Console.WriteLine( "Frequence jour effectuee avec succes" );
+                                            // update
+                                            bool updated = AlertRepo.UpdateRequest( request.case_id, dateVal_w.AddDays( days ) );
+                                            if ( updated ) {
+                                                Console.WriteLine( "Frequence jour effectuee avec succes" );
+                                            }
                                         }
                                     }
                                 }
+                            } catch(Exception ex ) {
+                                ErrorLog.LogWrite( "Error message: " + ex.Message );
                             }
                             break;
                         case "Mois":
+                            try {
+                                // log information
+                                LogAlert.LogWrite( "Alert details => \n" + "Case ID: " + request.case_id + "\nStart date: " + request.start_date + "\nEnd date: " + request.end_date + "\nLoan type: " + request.financing_type_name + "\nCurrent date: " + current_date + "\nFrequence: " + request.alert_frequence + "\nPeriod: " + request.alert_frequence_periodicity );
+                                DateTime dateVal_m = ( DateTime ) request.start_date;
+                                frequence = Int32.Parse( request.alert_frequence );
+                                //int days = frequence * week;
 
-                            DateTime dateVal_m = ( DateTime ) request.start_date;
-                            frequence = Int32.Parse( request.alert_frequence );
-                            //int days = frequence * week;
+                                // check whether the mail has been already sent for the day
+                                if ( AlertRepo.HasEmailBeenSent( request.case_id, request.financing_type_name, request.customer_no ?? 0, request.start_date, request.end_date ) ) {
+                                    Console.WriteLine( "Email has already been sent to " + request.email );
+                                }
+                                else {
+                                    // fetch the request whose detail has been logged and the current date is now
 
-                            // check whether the mail has been already sent for the day
-                            if ( AlertRepo.HasEmailBeenSent( request.case_id, request.financing_type_name, request.customer_no ?? 0, request.start_date, request.end_date ) ) {
-                                Console.WriteLine( "Email has already been sent to " + request.email );
-                            }
-                            else {
-                                // fetch the request whose detail has been logged and the current date is now
+                                    if ( dateVal_m == current_date && dateVal_m <= request.end_date ) {
+                                        // send email to account officer
+                                        //SendEmail ( string to, string subject, string message )
+                                        string mail = Mailer.SendEmail( "gnougo2009@gmail.com", "SUIVI DES ENGAGEMENTS", request.decisions );
+                                        //if ( mail.Equals( mail ) ) {
+                                        if ( true ) {
+                                            LogAlert.LogWrite( "Email sent successfully to " + request.fullname + " with the following email: " + request.email + " at " + DateTime.Now );
+                                            // log email info
+                                            AlertRepo.SaveEmailInfoAFterEmailSent( request );
 
-                                if ( dateVal_m == current_date && dateVal_m <= request.end_date ) {
-                                    // send email to account officer
-                                    //SendEmail ( string to, string subject, string message )
-                                    string mail = Mailer.SendEmail( "gnougo2009@gmail.com", "SUIVI DES ENGAGEMENTS", request.decisions );
-                                    //if ( mail.Equals( mail ) ) {
-                                    if ( true ) {
-                                        LogWriter.LogWrite( "Email sent successfully to " + request.fullname + " with the following email: " + request.email + " at " + DateTime.Now );
-                                        // log email info
-                                        AlertRepo.SaveEmailInfoAFterEmailSent( request );
-
-                                        // update
-                                        bool updated = AlertRepo.UpdateRequest( request.case_id, dateVal_m.AddMonths( frequence ) );
-                                        if ( updated ) {
-                                            Console.WriteLine( "Frequence jour effectuee avec succes" );
+                                            // update
+                                            bool updated = AlertRepo.UpdateRequest( request.case_id, dateVal_m.AddMonths( frequence ) );
+                                            if ( updated ) {
+                                                Console.WriteLine( "Frequence jour effectuee avec succes" );
+                                            }
                                         }
                                     }
                                 }
+                            } catch(Exception ex ) {
+                                ErrorLog.LogWrite( "Error message: " + ex.Message );
                             }
                             break;
                         case "Annee":
+                            try {
+                                // log information
+                                LogAlert.LogWrite( "Alert details => \n" + "Case ID: " + request.case_id + "\nStart date: " + request.start_date + "\nEnd date: " + request.end_date + "\nLoan type: " + request.financing_type_name + "\nCurrent date: " + current_date + "\nFrequence: " + request.alert_frequence + "\nPeriod: " + request.alert_frequence_periodicity );
+                                DateTime dateVal_y = ( DateTime ) request.start_date;
+                                frequence = Int32.Parse( request.alert_frequence );
+                                //int days = frequence * week;
 
-                            DateTime dateVal_y = ( DateTime ) request.start_date;
-                            frequence = Int32.Parse( request.alert_frequence );
-                            //int days = frequence * week;
+                                // check whether the mail has been already sent for the day
+                                if ( AlertRepo.HasEmailBeenSent( request.case_id, request.financing_type_name, request.customer_no ?? 0, request.start_date, request.end_date ) ) {
+                                    Console.WriteLine( "Email has already been sent to " + request.email );
+                                }
+                                else {
+                                    // fetch the request whose detail has been logged and the current date is now
 
-                            // check whether the mail has been already sent for the day
-                            if ( AlertRepo.HasEmailBeenSent( request.case_id, request.financing_type_name, request.customer_no ?? 0, request.start_date, request.end_date ) ) {
-                                Console.WriteLine( "Email has already been sent to " + request.email );
-                            }
-                            else {
-                                // fetch the request whose detail has been logged and the current date is now
+                                    if ( dateVal_y == current_date && dateVal_y <= request.end_date ) {
+                                        // send email to account officer
+                                        //SendEmail ( string to, string subject, string message )
+                                        string mail = Mailer.SendEmail( "gnougo2009@gmail.com", "SUIVI DES ENGAGEMENTS", request.decisions );
+                                        //if ( mail.Equals( mail ) ) {
+                                        if ( true ) {
+                                            LogAlert.LogWrite( "Email sent successfully to " + request.fullname + " with the following email: " + request.email + " at " + DateTime.Now );
+                                            // log email info
+                                            AlertRepo.SaveEmailInfoAFterEmailSent( request );
 
-                                if ( dateVal_y == current_date && dateVal_y <= request.end_date ) {
-                                    // send email to account officer
-                                    //SendEmail ( string to, string subject, string message )
-                                    string mail = Mailer.SendEmail( "gnougo2009@gmail.com", "SUIVI DES ENGAGEMENTS", request.decisions );
-                                    //if ( mail.Equals( mail ) ) {
-                                    if ( true ) {
-                                        LogWriter.LogWrite( "Email sent successfully to " + request.fullname + " with the following email: " + request.email + " at " + DateTime.Now );
-                                        // log email info
-                                        AlertRepo.SaveEmailInfoAFterEmailSent( request );
-
-                                        // update
-                                        bool updated = AlertRepo.UpdateRequest( request.case_id, dateVal_y.AddYears( frequence ) );
-                                        if ( updated ) {
-                                            Console.WriteLine( "Frequence jour effectuee avec succes" );
+                                            // update
+                                            bool updated = AlertRepo.UpdateRequest( request.case_id, dateVal_y.AddYears( frequence ) );
+                                            if ( updated ) {
+                                                Console.WriteLine( "Frequence jour effectuee avec succes" );
+                                            }
                                         }
                                     }
                                 }
+                            } catch(Exception ex ) {
+                                ErrorLog.LogWrite( "Error message: " + ex.Message );
                             }
                             break;
                     }
@@ -508,7 +585,211 @@ namespace TrackingJob
                 Console.WriteLine( "Aucun mail n'a ete envoye au gestionnaire" );
             }
 
-            Console.ReadLine();
+            //Console.ReadLine();
+        }
+
+        // send notification to customers
+        public void SendNotificationToCustomers ()
+        {
+            try {
+                // fetch the list of customers whose the loan due date is issued
+                // check the type of customer
+                // check the periodicity of the loan type
+                // send the sms or mail to the customers
+                // log the information details after sending the sms or email and get the list later on for the test
+                // close the connection and abort the system
+
+                IFormatProvider culture = new CultureInfo( "en-US", true );
+                DateTime dateVal = DateTime.ParseExact( DateTime.Today.ToString( "yyyy-MM-dd" ), "yyyy-MM-dd", culture );// make a while loop
+
+
+                List<LoanApproved> loans = AlertRepo.FetchLoans();
+
+                if(loans.Count != 0 ) {
+                    foreach(var item in loans ) {
+                        
+
+                        // check the type of customer
+                        if(item.SECTEUR_ACTIVITE.Equals( "PARTICULIER" ) ) {
+                            // check periodicite -- ANNUELLE  MENSUELLE  TRIMESTRIELLE  SEMESTRIELLE
+                            switch ( item.PERIODICITE ) {
+                                case "MENSUELLE":
+                                    // check whether the mail has already been sent
+                                    if ( item.DATE_1ERE_ECHEANCE < dateVal ) {
+                                        // send another type of email to the customer or set that it
+                                        Console.WriteLine( "customer email: " + item.EMAIL_CLIENT + " ===> gestionnaire email: " + item.GESTIONNAIRE_EMAIL );
+                                    }
+                                    else {
+                                        if( item.DATE_1ERE_ECHEANCE == dateVal ) {
+                                            // check the type of loan and send the sms or email
+                                            string email_body = string.Empty;
+                                            if ( item.SECTEUR_ACTIVITE.Contains( "TERME" ) ) {
+                                                email_body = ConfigurationManager.AppSettings["traite_mail"].ToString();
+                                            }
+                                            else {
+                                                email_body = ConfigurationManager.AppSettings["terme_mail"].ToString();
+                                            }
+                                            email_body = email_body.Replace( "{{customer_name}}", item.INTITULE_COMPTE );
+                                            email_body = email_body.Replace( "{{account_no}}", item.NUMERO_COMPTE );
+                                            email_body = email_body.Replace( "{{rib_key}}", item.CLE_COMPTE );
+                                            email_body = email_body.Replace( "{{loan_number}}", item.NUMERO_DOSSIER );
+                                            email_body = email_body.Replace( "{{task_no}}", ( item.DUREE_DE_CREDIT - item.NBRE_ECHEANCE ).ToString() + "/" + item.DUREE_DE_CREDIT );
+                                            email_body = email_body.Replace( "{{due_date}}", item.DATE_1ERE_ECHEANCE.Value.ToString( "dd/MM/yyyy" ) );
+                                            email_body = email_body.Replace( "{{amount_due_date}}", item.IMPAYES_CREDIT.ToString() );
+                                            email_body = "Cher client votre";
+                                            string sent = Mailer.SendEmail( item.EMAIL_CLIENT, item.TYPE_ENGAGEMENT, email_body );
+
+                                            if ( sent.Equals( sent ) ) {
+                                                // update the due date for the next due date
+                                                var next_due_date = item.DATE_1ERE_ECHEANCE.Value.AddMonths( Constant.MENSUELLE );
+                                                bool update = AlertRepo.UpdateLoan( item.NUMERO_DOSSIER, next_due_date );
+                                                if ( update ) {
+                                                    LogAlert.LogWrite( "Action: Loan approved job =====>\n" + "TYPE CUSTOMER: " + item.SECTEUR_ACTIVITE + "NUMERO_DOSSIER: " + item.NUMERO_DOSSIER + "\nUPDATE OF THE NEXT DUE DATE: " + next_due_date + "\nPERIOD: " + item.PERIODICITE );
+                                                }
+                                            }
+                                        }
+                                    }
+                                    break;
+
+                                case "TRIMESTRIELLE":
+
+                                    // check whether the mail has already been sent
+                                    if ( item.DATE_1ERE_ECHEANCE < dateVal ) {
+                                        // send another type of email to the customer or set that it
+                                        Console.WriteLine( "customer email: " + item.EMAIL_CLIENT + " ===> gestionnaire email: " + item.GESTIONNAIRE_EMAIL );
+                                    }
+                                    else {
+                                        if ( item.DATE_1ERE_ECHEANCE == dateVal ) {
+                                            // check the type of loan and send the sms or email
+                                            string email_body = string.Empty;
+                                            if ( item.SECTEUR_ACTIVITE.Contains( "TERME" ) ) {
+                                                email_body = ConfigurationManager.AppSettings["traite_mail"].ToString();
+                                            }
+                                            else {
+                                                email_body = ConfigurationManager.AppSettings["terme_mail"].ToString();
+                                            }
+                                            email_body = email_body.Replace( "{{customer_name}}", item.INTITULE_COMPTE );
+                                            email_body = email_body.Replace( "{{account_no}}", item.NUMERO_COMPTE );
+                                            email_body = email_body.Replace( "{{rib_key}}", item.CLE_COMPTE );
+                                            email_body = email_body.Replace( "{{loan_number}}", item.NUMERO_DOSSIER );
+                                            email_body = email_body.Replace( "{{task_no}}", ( item.DUREE_DE_CREDIT - item.NBRE_ECHEANCE ).ToString() + "/" + item.DUREE_DE_CREDIT );
+                                            email_body = email_body.Replace( "{{due_date}}", item.DATE_1ERE_ECHEANCE.Value.ToString( "dd/MM/yyyy" ) );
+                                            email_body = email_body.Replace( "{{amount_due_date}}", item.IMPAYES_CREDIT.ToString() );
+                                            email_body = "Cher client votre";
+                                            string sent = Mailer.SendEmail( item.EMAIL_CLIENT, item.TYPE_ENGAGEMENT, email_body );
+
+                                            if ( sent.Equals( sent ) ) {
+                                                // update the due date for the next due date
+                                                var next_due_date = item.DATE_1ERE_ECHEANCE.Value.AddMonths( Constant.TRIMESTRE );
+                                                bool update = AlertRepo.UpdateLoan( item.NUMERO_DOSSIER, next_due_date );
+                                                if ( update ) {
+                                                    LogAlert.LogWrite( "Action: Loan approved job =====>\n" + "TYPE CUSTOMER: " + item.SECTEUR_ACTIVITE + "NUMERO_DOSSIER: " + item.NUMERO_DOSSIER + "\nUPDATE OF THE NEXT DUE DATE: " + next_due_date + "\nPERIOD: " + item.PERIODICITE );
+                                                }
+                                            }
+                                        }
+                                    }
+                                    break;
+
+                                case "SEMESTRIELLE":
+
+                                    // check whether the mail has already been sent
+                                    if ( item.DATE_1ERE_ECHEANCE < dateVal ) {
+                                        // send another type of email to the customer or set that it
+                                        Console.WriteLine( "customer email: " + item.EMAIL_CLIENT + " ===> gestionnaire email: " + item.GESTIONNAIRE_EMAIL );
+                                    }
+                                    else {
+                                        if ( item.DATE_1ERE_ECHEANCE == dateVal ) {
+                                            // check the type of loan and send the sms or email
+                                            string email_body = string.Empty;
+                                            if ( item.SECTEUR_ACTIVITE.Contains( "TERME" ) ) {
+                                                email_body = ConfigurationManager.AppSettings["traite_mail"].ToString();
+                                            }
+                                            else {
+                                                email_body = ConfigurationManager.AppSettings["terme_mail"].ToString();
+                                            }
+                                            email_body = email_body.Replace( "{{customer_name}}", item.INTITULE_COMPTE );
+                                            email_body = email_body.Replace( "{{account_no}}", item.NUMERO_COMPTE );
+                                            email_body = email_body.Replace( "{{rib_key}}", item.CLE_COMPTE );
+                                            email_body = email_body.Replace( "{{loan_number}}", item.NUMERO_DOSSIER );
+                                            email_body = email_body.Replace( "{{task_no}}", ( item.DUREE_DE_CREDIT - item.NBRE_ECHEANCE ).ToString() + "/" + item.DUREE_DE_CREDIT );
+                                            email_body = email_body.Replace( "{{due_date}}", item.DATE_1ERE_ECHEANCE.Value.ToString( "dd/MM/yyyy" ) );
+                                            email_body = email_body.Replace( "{{amount_due_date}}", item.IMPAYES_CREDIT.ToString() );
+                                            email_body = "Cher client votre";
+                                            string sent = Mailer.SendEmail( item.EMAIL_CLIENT, item.TYPE_ENGAGEMENT, email_body );
+
+                                            if ( sent.Equals( sent ) ) {
+                                                // update the due date for the next due date
+                                                var next_due_date = item.DATE_1ERE_ECHEANCE.Value.AddMonths( Constant.SEMESTRE );
+                                                bool update = AlertRepo.UpdateLoan( item.NUMERO_DOSSIER, next_due_date );
+                                                if ( update ) {
+                                                    LogAlert.LogWrite( "Action: Loan approved job =====>\n" + "TYPE CUSTOMER: " + item.SECTEUR_ACTIVITE + "NUMERO_DOSSIER: " + item.NUMERO_DOSSIER + "\nUPDATE OF THE NEXT DUE DATE: " + next_due_date + "\nPERIOD: " + item.PERIODICITE );
+                                                }
+                                            }
+                                        }
+                                    }
+                                    break;
+
+                                case "ANNUELLE":
+
+                                    // check whether the mail has already been sent
+                                    if ( item.DATE_1ERE_ECHEANCE < dateVal ) {
+                                        // send another type of email to the customer or set that it
+                                        Console.WriteLine( "customer email: " + item.EMAIL_CLIENT + " ===> gestionnaire email: " + item.GESTIONNAIRE_EMAIL );
+                                    }
+                                    else {
+                                        if ( item.DATE_1ERE_ECHEANCE == dateVal ) {
+                                            // check the type of loan and send the sms or email
+                                            string email_body = string.Empty;
+                                            if ( item.SECTEUR_ACTIVITE.Contains( "TERME" ) ) {
+                                                email_body = ConfigurationManager.AppSettings["traite_mail"].ToString();
+                                            }
+                                            else {
+                                                email_body = ConfigurationManager.AppSettings["terme_mail"].ToString();
+                                            }
+                                            email_body = email_body.Replace( "{{customer_name}}", item.INTITULE_COMPTE );
+                                            email_body = email_body.Replace( "{{account_no}}", item.NUMERO_COMPTE );
+                                            email_body = email_body.Replace( "{{rib_key}}", item.CLE_COMPTE );
+                                            email_body = email_body.Replace( "{{loan_number}}", item.NUMERO_DOSSIER );
+                                            email_body = email_body.Replace( "{{task_no}}", ( item.DUREE_DE_CREDIT - item.NBRE_ECHEANCE ).ToString() + "/" + item.DUREE_DE_CREDIT );
+                                            email_body = email_body.Replace( "{{due_date}}", item.DATE_1ERE_ECHEANCE.Value.ToString( "dd/MM/yyyy" ) );
+                                            email_body = email_body.Replace( "{{amount_due_date}}", item.IMPAYES_CREDIT.ToString() );
+                                            email_body = "Cher client votre";
+                                            string sent = Mailer.SendEmail( item.EMAIL_CLIENT, item.TYPE_ENGAGEMENT, email_body );
+
+                                            if ( sent.Equals( sent ) ) {
+                                                // update the due date for the next due date
+                                                var next_due_date = item.DATE_1ERE_ECHEANCE.Value.AddYears( Constant.ANNUEL );
+                                                bool update = AlertRepo.UpdateLoan( item.NUMERO_DOSSIER, next_due_date );
+                                                if ( update ) {
+                                                    LogAlert.LogWrite( "Action: Loan approved job =====>\n" + "TYPE CUSTOMER: " + item.SECTEUR_ACTIVITE + "NUMERO_DOSSIER: " + item.NUMERO_DOSSIER + "\nUPDATE OF THE NEXT DUE DATE: " + next_due_date + "\nPERIOD: " + item.PERIODICITE );
+                                                }
+                                            }
+                                        }
+                                    }
+                                    break;
+
+                            }
+                        }
+                        else {
+                            LogAlert.LogWrite( "Action: Loan approved job =====>\n" + "TYPE CUSTOMER: " + item.SECTEUR_ACTIVITE );
+                        }
+                    }
+                }
+
+
+            } catch(Exception ex ) {
+                ErrorLog.LogWrite("Error while sending notification to customers.... \nError message: " + ex.Message);
+            }
+        }
+        
+        // run the function
+        public void Run ()
+        {
+            while ( KeepGoing ) {
+                GenerateNewRequest();
+                SendAlertToAccountOfficer();
+            }
+            Thread.Sleep( 2000 );
         }
     }
 }

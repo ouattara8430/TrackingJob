@@ -71,6 +71,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Log\ErrorLog.cs" />
+    <Compile Include="Log\LogAction.cs" />
+    <Compile Include="Log\LogAlert.cs" />
     <Compile Include="Log\LogWriter.cs" />
     <Compile Include="Model\ActivityLog.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -109,6 +111,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\LoanApplication.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\LoanApproved.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Mailer.cs" />

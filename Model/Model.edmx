@@ -145,6 +145,38 @@
           <Property Name="loan_rate" Type="varchar" MaxLength="10" />
           <Property Name="financing_code" Type="int" />
         </EntityType>
+        <EntityType Name="LoanApproved">
+          <Key>
+            <PropertyRef Name="NUMERO_DOSSIER" />
+          </Key>
+          <Property Name="NUMERO_DOSSIER" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CODE_CLIENT" Type="nvarchar" MaxLength="255" />
+          <Property Name="CODE_AGENCE" Type="nvarchar" MaxLength="255" />
+          <Property Name="NUMERO_COMPTE" Type="nvarchar" MaxLength="255" />
+          <Property Name="CLE_COMPTE" Type="nvarchar" MaxLength="255" />
+          <Property Name="INTITULE_COMPTE" Type="nvarchar" MaxLength="255" />
+          <Property Name="SECTEUR_ACTIVITE" Type="nvarchar" MaxLength="255" />
+          <Property Name="TYPE_ENGAGEMENT" Type="nvarchar" MaxLength="255" />
+          <Property Name="MOTIF" Type="nvarchar" MaxLength="255" />
+          <Property Name="DATE_MISE_EN_PLACE" Type="datetime" />
+          <Property Name="DATE_1ERE_ECHEANCE" Type="datetime" />
+          <Property Name="DATE_FIN_ECHEANCE" Type="datetime" />
+          <Property Name="MONTANT_PRET" Type="float" />
+          <Property Name="MONTANT_DEBLOQUE" Type="float" />
+          <Property Name="TAUX_INTERET" Type="float" />
+          <Property Name="TEG" Type="float" />
+          <Property Name="COMMISSION" Type="float" />
+          <Property Name="TAXE" Type="float" />
+          <Property Name="ENCOURS_CREDIT" Type="float" />
+          <Property Name="IMPAYES_CREDIT" Type="float" />
+          <Property Name="PERIODICITE" Type="nvarchar" MaxLength="255" />
+          <Property Name="NBRE_ECHEANCE" Type="float" />
+          <Property Name="DUREE_DE_CREDIT" Type="float" />
+          <Property Name="DOSSIERCREDIT_ETAT" Type="nvarchar" MaxLength="255" />
+          <Property Name="GESTIONNAIRE" Type="nvarchar" MaxLength="255" />
+          <Property Name="EMAIL_CLIENT" Type="varchar" MaxLength="250" />
+          <Property Name="GESTIONNAIRE_EMAIL" Type="varchar" MaxLength="250" />
+        </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="role_id" />
@@ -341,6 +373,7 @@
           <EntitySet Name="EmailSent" EntityType="Self.EmailSent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GestionnaireReport" EntityType="Self.GestionnaireReport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoanApplication" EntityType="Self.LoanApplication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoanApproved" EntityType="Self.LoanApproved" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
@@ -761,6 +794,7 @@
           <FunctionImport Name="FetchRequests" ReturnType="Collection(CommitmentDBModel.FetchRequests_Result)" />
           <EntitySet Name="AlertRequestBackups" EntityType="CommitmentDBModel.AlertRequestBackup" />
           <EntitySet Name="EmailSents" EntityType="CommitmentDBModel.EmailSent" />
+          <EntitySet Name="LoanApproveds" EntityType="CommitmentDBModel.LoanApproved" />
         </EntityContainer>
         <ComplexType Name="FetchAccountOfficerHistoric_Result">
           <Property Type="String" Name="first_name" Nullable="true" MaxLength="150" />
@@ -854,6 +888,38 @@
           <Property Name="customer_fullname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="case_id" Type="Int32" />
           <Property Name="sent_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="LoanApproved">
+          <Key>
+            <PropertyRef Name="NUMERO_DOSSIER" />
+          </Key>
+          <Property Name="NUMERO_DOSSIER" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CODE_CLIENT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CODE_AGENCE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NUMERO_COMPTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CLE_COMPTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="INTITULE_COMPTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SECTEUR_ACTIVITE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TYPE_ENGAGEMENT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="MOTIF" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DATE_MISE_EN_PLACE" Type="DateTime" Precision="3" />
+          <Property Name="DATE_1ERE_ECHEANCE" Type="DateTime" Precision="3" />
+          <Property Name="DATE_FIN_ECHEANCE" Type="DateTime" Precision="3" />
+          <Property Name="MONTANT_PRET" Type="Double" />
+          <Property Name="MONTANT_DEBLOQUE" Type="Double" />
+          <Property Name="TAUX_INTERET" Type="Double" />
+          <Property Name="TEG" Type="Double" />
+          <Property Name="COMMISSION" Type="Double" />
+          <Property Name="TAXE" Type="Double" />
+          <Property Name="ENCOURS_CREDIT" Type="Double" />
+          <Property Name="IMPAYES_CREDIT" Type="Double" />
+          <Property Name="PERIODICITE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NBRE_ECHEANCE" Type="Double" />
+          <Property Name="DUREE_DE_CREDIT" Type="Double" />
+          <Property Name="DOSSIERCREDIT_ETAT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="GESTIONNAIRE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL_CLIENT" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="GESTIONNAIRE_EMAIL" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1104,6 +1170,39 @@
                 <ScalarProperty Name="end_date" ColumnName="end_date" />
                 <ScalarProperty Name="start_date" ColumnName="start_date" />
                 <ScalarProperty Name="email_id" ColumnName="email_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoanApproveds">
+            <EntityTypeMapping TypeName="CommitmentDBModel.LoanApproved">
+              <MappingFragment StoreEntitySet="LoanApproved">
+                <ScalarProperty Name="GESTIONNAIRE_EMAIL" ColumnName="GESTIONNAIRE_EMAIL" />
+                <ScalarProperty Name="EMAIL_CLIENT" ColumnName="EMAIL_CLIENT" />
+                <ScalarProperty Name="GESTIONNAIRE" ColumnName="GESTIONNAIRE" />
+                <ScalarProperty Name="DOSSIERCREDIT_ETAT" ColumnName="DOSSIERCREDIT_ETAT" />
+                <ScalarProperty Name="DUREE_DE_CREDIT" ColumnName="DUREE_DE_CREDIT" />
+                <ScalarProperty Name="NBRE_ECHEANCE" ColumnName="NBRE_ECHEANCE" />
+                <ScalarProperty Name="PERIODICITE" ColumnName="PERIODICITE" />
+                <ScalarProperty Name="IMPAYES_CREDIT" ColumnName="IMPAYES_CREDIT" />
+                <ScalarProperty Name="ENCOURS_CREDIT" ColumnName="ENCOURS_CREDIT" />
+                <ScalarProperty Name="TAXE" ColumnName="TAXE" />
+                <ScalarProperty Name="COMMISSION" ColumnName="COMMISSION" />
+                <ScalarProperty Name="TEG" ColumnName="TEG" />
+                <ScalarProperty Name="TAUX_INTERET" ColumnName="TAUX_INTERET" />
+                <ScalarProperty Name="MONTANT_DEBLOQUE" ColumnName="MONTANT_DEBLOQUE" />
+                <ScalarProperty Name="MONTANT_PRET" ColumnName="MONTANT_PRET" />
+                <ScalarProperty Name="DATE_FIN_ECHEANCE" ColumnName="DATE_FIN_ECHEANCE" />
+                <ScalarProperty Name="DATE_1ERE_ECHEANCE" ColumnName="DATE_1ERE_ECHEANCE" />
+                <ScalarProperty Name="DATE_MISE_EN_PLACE" ColumnName="DATE_MISE_EN_PLACE" />
+                <ScalarProperty Name="MOTIF" ColumnName="MOTIF" />
+                <ScalarProperty Name="TYPE_ENGAGEMENT" ColumnName="TYPE_ENGAGEMENT" />
+                <ScalarProperty Name="SECTEUR_ACTIVITE" ColumnName="SECTEUR_ACTIVITE" />
+                <ScalarProperty Name="INTITULE_COMPTE" ColumnName="INTITULE_COMPTE" />
+                <ScalarProperty Name="CLE_COMPTE" ColumnName="CLE_COMPTE" />
+                <ScalarProperty Name="NUMERO_COMPTE" ColumnName="NUMERO_COMPTE" />
+                <ScalarProperty Name="CODE_AGENCE" ColumnName="CODE_AGENCE" />
+                <ScalarProperty Name="CODE_CLIENT" ColumnName="CODE_CLIENT" />
+                <ScalarProperty Name="NUMERO_DOSSIER" ColumnName="NUMERO_DOSSIER" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

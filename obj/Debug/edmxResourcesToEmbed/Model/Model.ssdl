@@ -140,6 +140,38 @@
     <Property Name="loan_rate" Type="varchar" MaxLength="10" />
     <Property Name="financing_code" Type="int" />
   </EntityType>
+  <EntityType Name="LoanApproved">
+    <Key>
+      <PropertyRef Name="NUMERO_DOSSIER" />
+    </Key>
+    <Property Name="NUMERO_DOSSIER" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CODE_CLIENT" Type="nvarchar" MaxLength="255" />
+    <Property Name="CODE_AGENCE" Type="nvarchar" MaxLength="255" />
+    <Property Name="NUMERO_COMPTE" Type="nvarchar" MaxLength="255" />
+    <Property Name="CLE_COMPTE" Type="nvarchar" MaxLength="255" />
+    <Property Name="INTITULE_COMPTE" Type="nvarchar" MaxLength="255" />
+    <Property Name="SECTEUR_ACTIVITE" Type="nvarchar" MaxLength="255" />
+    <Property Name="TYPE_ENGAGEMENT" Type="nvarchar" MaxLength="255" />
+    <Property Name="MOTIF" Type="nvarchar" MaxLength="255" />
+    <Property Name="DATE_MISE_EN_PLACE" Type="datetime" />
+    <Property Name="DATE_1ERE_ECHEANCE" Type="datetime" />
+    <Property Name="DATE_FIN_ECHEANCE" Type="datetime" />
+    <Property Name="MONTANT_PRET" Type="float" />
+    <Property Name="MONTANT_DEBLOQUE" Type="float" />
+    <Property Name="TAUX_INTERET" Type="float" />
+    <Property Name="TEG" Type="float" />
+    <Property Name="COMMISSION" Type="float" />
+    <Property Name="TAXE" Type="float" />
+    <Property Name="ENCOURS_CREDIT" Type="float" />
+    <Property Name="IMPAYES_CREDIT" Type="float" />
+    <Property Name="PERIODICITE" Type="nvarchar" MaxLength="255" />
+    <Property Name="NBRE_ECHEANCE" Type="float" />
+    <Property Name="DUREE_DE_CREDIT" Type="float" />
+    <Property Name="DOSSIERCREDIT_ETAT" Type="nvarchar" MaxLength="255" />
+    <Property Name="GESTIONNAIRE" Type="nvarchar" MaxLength="255" />
+    <Property Name="EMAIL_CLIENT" Type="varchar" MaxLength="250" />
+    <Property Name="GESTIONNAIRE_EMAIL" Type="varchar" MaxLength="250" />
+  </EntityType>
   <EntityType Name="Roles">
     <Key>
       <PropertyRef Name="role_id" />
@@ -336,6 +368,7 @@
     <EntitySet Name="EmailSent" EntityType="Self.EmailSent" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GestionnaireReport" EntityType="Self.GestionnaireReport" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LoanApplication" EntityType="Self.LoanApplication" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoanApproved" EntityType="Self.LoanApproved" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />

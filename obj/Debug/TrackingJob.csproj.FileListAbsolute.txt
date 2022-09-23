@@ -1,4 +1,3 @@
-C:\Users\abc\source\repos\TrackingJob\obj\Debug\TrackingJob.csproj.CoreCompileInputs.cache
 C:\Users\abc\source\repos\TrackingJob\bin\Debug\TrackingJob.exe.config
 C:\Users\abc\source\repos\TrackingJob\bin\Debug\TrackingJob.exe
 C:\Users\abc\source\repos\TrackingJob\bin\Debug\TrackingJob.pdb
@@ -15,6 +14,7 @@ C:\Users\abc\source\repos\TrackingJob\bin\Debug\System.Security.AccessControl.xm
 C:\Users\abc\source\repos\TrackingJob\bin\Debug\System.Security.Permissions.xml
 C:\Users\abc\source\repos\TrackingJob\bin\Debug\System.Security.Principal.Windows.xml
 C:\Users\abc\source\repos\TrackingJob\obj\Debug\TrackingJob.csprojAssemblyReference.cache
+C:\Users\abc\source\repos\TrackingJob\obj\Debug\TrackingJob.csproj.CoreCompileInputs.cache
 C:\Users\abc\source\repos\TrackingJob\obj\Debug\TrackingJob.csproj.CopyComplete
 C:\Users\abc\source\repos\TrackingJob\obj\Debug\TrackingJob.exe
 C:\Users\abc\source\repos\TrackingJob\obj\Debug\TrackingJob.pdb

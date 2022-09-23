@@ -220,7 +220,6 @@ namespace TrackingJob.Repository
 
             try {
                 db = new CommitmentDBEntities();
-                IFormatProvider culture = new CultureInfo( "en-US", true );
                 EmailSent email = new EmailSent {
                     start_date = request.start_date,
                     //end_date = DateTime.ParseExact( request.end_date, "yyyy-MM-dd", culture ),
@@ -247,6 +246,40 @@ namespace TrackingJob.Repository
             }
             catch ( Exception ex ) {
                 ErrorLog.LogWrite( "Error message from SaveEmailInfoAFterEmailSent method: " + ex.Message );
+            }
+        }
+
+        // fetch the list of customers
+        public static List<LoanApproved> FetchLoans ()
+        {
+            try {
+                IFormatProvider culture = new CultureInfo( "en-US", true );
+                DateTime dateVal = DateTime.ParseExact( DateTime.Today.ToString( "yyyy-MM-dd" ), "yyyy-MM-dd", culture );
+                db = new CommitmentDBEntities();
+                //DATE_1ERE_ECHEANCE <= DATE_FIN_ECHEANCE and DATE_FIN_ECHEANCE >= getdate()
+                return db.LoanApproveds.Where( x => x.DATE_1ERE_ECHEANCE <= x.DATE_FIN_ECHEANCE && x.DATE_FIN_ECHEANCE >= dateVal).ToList();
+            } catch(Exception ex ) {
+                ErrorLog.LogWrite( "Error message: " + ex.Message );
+                return null;
+            }
+        }
+
+        internal static bool UpdateLoan ( string NUMERO_DOSSIER, DateTime? dATE_1ERE_ECHEANCE )
+        {
+            try {
+                IFormatProvider culture = new CultureInfo( "en-US", true );
+                DateTime dateVal = DateTime.ParseExact( DateTime.Today.ToString( "yyyy-MM-dd" ), "yyyy-MM-dd", culture );
+                db = new CommitmentDBEntities();
+                var update = db.LoanApproveds.Where( x => x.NUMERO_DOSSIER == NUMERO_DOSSIER ).FirstOrDefault();
+                update.DATE_1ERE_ECHEANCE = dATE_1ERE_ECHEANCE;
+
+                db.Entry( update ).State = EntityState.Modified;
+                int res = db.SaveChanges();
+                return ( res > 0 ) ? true : false;
+            }
+            catch ( Exception ex ) {
+                ErrorLog.LogWrite( "Error message: " + ex.Message );
+                return false;
             }
         }
     }

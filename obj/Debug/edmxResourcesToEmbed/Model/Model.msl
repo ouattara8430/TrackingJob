@@ -247,5 +247,38 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="LoanApproveds">
+      <EntityTypeMapping TypeName="CommitmentDBModel.LoanApproved">
+        <MappingFragment StoreEntitySet="LoanApproved">
+          <ScalarProperty Name="GESTIONNAIRE_EMAIL" ColumnName="GESTIONNAIRE_EMAIL" />
+          <ScalarProperty Name="EMAIL_CLIENT" ColumnName="EMAIL_CLIENT" />
+          <ScalarProperty Name="GESTIONNAIRE" ColumnName="GESTIONNAIRE" />
+          <ScalarProperty Name="DOSSIERCREDIT_ETAT" ColumnName="DOSSIERCREDIT_ETAT" />
+          <ScalarProperty Name="DUREE_DE_CREDIT" ColumnName="DUREE_DE_CREDIT" />
+          <ScalarProperty Name="NBRE_ECHEANCE" ColumnName="NBRE_ECHEANCE" />
+          <ScalarProperty Name="PERIODICITE" ColumnName="PERIODICITE" />
+          <ScalarProperty Name="IMPAYES_CREDIT" ColumnName="IMPAYES_CREDIT" />
+          <ScalarProperty Name="ENCOURS_CREDIT" ColumnName="ENCOURS_CREDIT" />
+          <ScalarProperty Name="TAXE" ColumnName="TAXE" />
+          <ScalarProperty Name="COMMISSION" ColumnName="COMMISSION" />
+          <ScalarProperty Name="TEG" ColumnName="TEG" />
+          <ScalarProperty Name="TAUX_INTERET" ColumnName="TAUX_INTERET" />
+          <ScalarProperty Name="MONTANT_DEBLOQUE" ColumnName="MONTANT_DEBLOQUE" />
+          <ScalarProperty Name="MONTANT_PRET" ColumnName="MONTANT_PRET" />
+          <ScalarProperty Name="DATE_FIN_ECHEANCE" ColumnName="DATE_FIN_ECHEANCE" />
+          <ScalarProperty Name="DATE_1ERE_ECHEANCE" ColumnName="DATE_1ERE_ECHEANCE" />
+          <ScalarProperty Name="DATE_MISE_EN_PLACE" ColumnName="DATE_MISE_EN_PLACE" />
+          <ScalarProperty Name="MOTIF" ColumnName="MOTIF" />
+          <ScalarProperty Name="TYPE_ENGAGEMENT" ColumnName="TYPE_ENGAGEMENT" />
+          <ScalarProperty Name="SECTEUR_ACTIVITE" ColumnName="SECTEUR_ACTIVITE" />
+          <ScalarProperty Name="INTITULE_COMPTE" ColumnName="INTITULE_COMPTE" />
+          <ScalarProperty Name="CLE_COMPTE" ColumnName="CLE_COMPTE" />
+          <ScalarProperty Name="NUMERO_COMPTE" ColumnName="NUMERO_COMPTE" />
+          <ScalarProperty Name="CODE_AGENCE" ColumnName="CODE_AGENCE" />
+          <ScalarProperty Name="CODE_CLIENT" ColumnName="CODE_CLIENT" />
+          <ScalarProperty Name="NUMERO_DOSSIER" ColumnName="NUMERO_DOSSIER" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

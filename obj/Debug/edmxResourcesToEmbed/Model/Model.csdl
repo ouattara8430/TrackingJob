@@ -364,6 +364,7 @@
     <FunctionImport Name="FetchRequests" ReturnType="Collection(CommitmentDBModel.FetchRequests_Result)" />
     <EntitySet Name="AlertRequestBackups" EntityType="CommitmentDBModel.AlertRequestBackup" />
     <EntitySet Name="EmailSents" EntityType="CommitmentDBModel.EmailSent" />
+    <EntitySet Name="LoanApproveds" EntityType="CommitmentDBModel.LoanApproved" />
   </EntityContainer>
   <ComplexType Name="FetchAccountOfficerHistoric_Result">
     <Property Type="String" Name="first_name" Nullable="true" MaxLength="150" />
@@ -457,5 +458,37 @@
     <Property Name="customer_fullname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="case_id" Type="Int32" />
     <Property Name="sent_date" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="LoanApproved">
+    <Key>
+      <PropertyRef Name="NUMERO_DOSSIER" />
+    </Key>
+    <Property Name="NUMERO_DOSSIER" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CODE_CLIENT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CODE_AGENCE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="NUMERO_COMPTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CLE_COMPTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="INTITULE_COMPTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SECTEUR_ACTIVITE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="TYPE_ENGAGEMENT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MOTIF" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_MISE_EN_PLACE" Type="DateTime" Precision="3" />
+    <Property Name="DATE_1ERE_ECHEANCE" Type="DateTime" Precision="3" />
+    <Property Name="DATE_FIN_ECHEANCE" Type="DateTime" Precision="3" />
+    <Property Name="MONTANT_PRET" Type="Double" />
+    <Property Name="MONTANT_DEBLOQUE" Type="Double" />
+    <Property Name="TAUX_INTERET" Type="Double" />
+    <Property Name="TEG" Type="Double" />
+    <Property Name="COMMISSION" Type="Double" />
+    <Property Name="TAXE" Type="Double" />
+    <Property Name="ENCOURS_CREDIT" Type="Double" />
+    <Property Name="IMPAYES_CREDIT" Type="Double" />
+    <Property Name="PERIODICITE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="NBRE_ECHEANCE" Type="Double" />
+    <Property Name="DUREE_DE_CREDIT" Type="Double" />
+    <Property Name="DOSSIERCREDIT_ETAT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="GESTIONNAIRE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EMAIL_CLIENT" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="GESTIONNAIRE_EMAIL" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>
