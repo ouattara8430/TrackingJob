@@ -61,6 +61,7 @@
     </Reference>
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -86,6 +87,7 @@
     <Compile Include="Model\Branch.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Constant.cs" />
     <Compile Include="Model\Decision.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -107,6 +109,9 @@
     <Compile Include="Model\FetchRequests_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Financing.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\GestionnaireReport.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -117,6 +122,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Mailer.cs" />
+    <Compile Include="Model\MassMail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -165,8 +173,8 @@
   <ItemGroup>
     <Content Include="Model\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.Context.cs</LastGenOutput>
+      <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <Content Include="Model\Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

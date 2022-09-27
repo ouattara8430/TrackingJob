@@ -56,6 +56,10 @@
     <Property Name="application_id" Type="varchar" MaxLength="100" />
     <Property Name="triggered_date" Type="date" />
     <Property Name="created_at" Type="date" />
+    <Property Name="next_alert_date" Type="date" />
+    <Property Name="nb_occurence" Type="int" />
+    <Property Name="next_action_date" Type="date" />
+    <Property Name="nb_occurence_action" Type="int" />
   </EntityType>
   <EntityType Name="Branches">
     <Key>
@@ -106,6 +110,14 @@
     <Property Name="case_id" Type="int" />
     <Property Name="sent_date" Type="datetime" />
   </EntityType>
+  <EntityType Name="Financing">
+    <Key>
+      <PropertyRef Name="financing_id" />
+    </Key>
+    <Property Name="financing_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="financing_type" Type="varchar" MaxLength="50" />
+    <Property Name="financing_type_names" Type="text" />
+  </EntityType>
   <EntityType Name="GestionnaireReport">
     <Key>
       <PropertyRef Name="report_id" />
@@ -139,6 +151,23 @@
     <Property Name="loan_period" Type="date" />
     <Property Name="loan_rate" Type="varchar" MaxLength="10" />
     <Property Name="financing_code" Type="int" />
+    <Property Name="CODE_AGENCE" Type="nvarchar" MaxLength="255" />
+    <Property Name="NUMERO_COMPTE" Type="nvarchar" MaxLength="255" />
+    <Property Name="CLE_COMPTE" Type="nvarchar" MaxLength="255" />
+    <Property Name="INTITULE_COMPTE" Type="nvarchar" MaxLength="255" />
+    <Property Name="SECTEUR_ACTIVITE" Type="nvarchar" MaxLength="255" />
+    <Property Name="TYPE_ENGAGEMENT" Type="nvarchar" MaxLength="255" />
+    <Property Name="DATE_MISE_EN_PLACE" Type="date" />
+    <Property Name="DATE_1ERE_ECHEANCE" Type="date" />
+    <Property Name="DATE_FIN_ECHEANCE" Type="date" />
+    <Property Name="MONTANT_DEBLOQUE" Type="varchar" MaxLength="50" />
+    <Property Name="ENCOURS_CREDIT" Type="varchar" MaxLength="50" />
+    <Property Name="IMPAYES_CREDIT" Type="varchar" MaxLength="50" />
+    <Property Name="PERIODICITE" Type="nvarchar" MaxLength="255" />
+    <Property Name="NBRE_ECHEANCE" Type="float" />
+    <Property Name="GESTIONNAIRE" Type="nvarchar" MaxLength="255" />
+    <Property Name="EMAIL_CLIENT" Type="varchar" MaxLength="250" />
+    <Property Name="GESTIONNAIRE_EMAIL" Type="varchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="LoanApproved">
     <Key>
@@ -171,6 +200,14 @@
     <Property Name="GESTIONNAIRE" Type="nvarchar" MaxLength="255" />
     <Property Name="EMAIL_CLIENT" Type="varchar" MaxLength="250" />
     <Property Name="GESTIONNAIRE_EMAIL" Type="varchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="MassMail">
+    <Key>
+      <PropertyRef Name="email_id" />
+    </Key>
+    <Property Name="email_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="sent_status" Type="bit" />
   </EntityType>
   <EntityType Name="Roles">
     <Key>
@@ -366,9 +403,11 @@
     <EntitySet Name="Decision" EntityType="Self.Decision" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EmailSent" EntityType="Self.EmailSent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Financing" EntityType="Self.Financing" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GestionnaireReport" EntityType="Self.GestionnaireReport" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LoanApplication" EntityType="Self.LoanApplication" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LoanApproved" EntityType="Self.LoanApproved" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MassMail" EntityType="Self.MassMail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />

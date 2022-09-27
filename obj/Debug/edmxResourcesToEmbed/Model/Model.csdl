@@ -32,12 +32,16 @@
     <Property Name="end_date_action" Type="DateTime" Precision="0" />
     <Property Name="application_id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="triggered_date" Type="DateTime" Precision="0" />
+    <Property Name="created_at" Type="DateTime" Precision="0" />
     <NavigationProperty Name="LoanApplication" Relationship="Self.FK__AlertRequ__appli__1F98B2C1" FromRole="AlertRequestNew" ToRole="LoanApplication" />
     <NavigationProperty Name="UserProfile" Relationship="Self.FK__AlertRequ__userI__0A9D95DB" FromRole="AlertRequestNew" ToRole="UserProfile" />
     <NavigationProperty Name="GestionnaireReports" Relationship="Self.FK__Gestionna__case___1332DBDC" FromRole="AlertRequestNew" ToRole="GestionnaireReport" />
     <NavigationProperty Name="Decision" Relationship="Self.fk_AlertRequestNew_Decisions" FromRole="AlertRequestNew" ToRole="Decision" />
     <NavigationProperty Name="UserProfile1" Relationship="Self.fk_UserProfile_executed_by" FromRole="AlertRequestNew" ToRole="UserProfile" />
-    <Property Name="created_at" Type="DateTime" Precision="0" />
+    <Property Name="next_alert_date" Type="DateTime" Precision="0" />
+    <Property Name="nb_occurence" Type="Int32" />
+    <Property Name="next_action_date" Type="DateTime" Precision="0" />
+    <Property Name="nb_occurence_action" Type="Int32" />
   </EntityType>
   <EntityType Name="Branch">
     <Key>
@@ -68,6 +72,37 @@
     <Property Name="report_id" Type="Int32" Nullable="false" />
     <NavigationProperty Name="GestionnaireReport" Relationship="Self.FK__Document__report__17F790F9" FromRole="Document" ToRole="GestionnaireReport" />
     <NavigationProperty Name="UserProfile" Relationship="Self.FK__Document__upload__17036CC0" FromRole="Document" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="EmailSent">
+    <Key>
+      <PropertyRef Name="email_id" />
+    </Key>
+    <Property Name="email_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="start_date" Type="DateTime" Precision="0" />
+    <Property Name="end_date" Type="DateTime" Precision="0" />
+    <Property Name="alert_frequence" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="alert_frequence_periodicity" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="decisions" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="fullname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="responsable_email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="tracking_officer" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="decision_desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="financing_type_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="loan_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="loan_amount" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="customer_no" Type="Int32" />
+    <Property Name="customer_fullname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="case_id" Type="Int32" />
+    <Property Name="sent_date" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Financing">
+    <Key>
+      <PropertyRef Name="financing_id" />
+    </Key>
+    <Property Name="financing_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="financing_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="financing_type_names" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="GestionnaireReport">
     <Key>
@@ -107,6 +142,63 @@
     <Property Name="financing_code" Type="Int32" />
     <NavigationProperty Name="AlertRequestNews" Relationship="Self.FK__AlertRequ__appli__1F98B2C1" FromRole="LoanApplication" ToRole="AlertRequestNew" />
     <NavigationProperty Name="Type" Relationship="Self.FK__LoanAppli__finan__245D67DE" FromRole="LoanApplication" ToRole="Type" />
+    <Property Name="CODE_AGENCE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="NUMERO_COMPTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CLE_COMPTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="INTITULE_COMPTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SECTEUR_ACTIVITE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="TYPE_ENGAGEMENT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_MISE_EN_PLACE" Type="DateTime" Precision="0" />
+    <Property Name="DATE_1ERE_ECHEANCE" Type="DateTime" Precision="0" />
+    <Property Name="DATE_FIN_ECHEANCE" Type="DateTime" Precision="0" />
+    <Property Name="MONTANT_DEBLOQUE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ENCOURS_CREDIT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IMPAYES_CREDIT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PERIODICITE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="NBRE_ECHEANCE" Type="Double" />
+    <Property Name="GESTIONNAIRE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EMAIL_CLIENT" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="GESTIONNAIRE_EMAIL" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="LoanApproved">
+    <Key>
+      <PropertyRef Name="NUMERO_DOSSIER" />
+    </Key>
+    <Property Name="NUMERO_DOSSIER" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CODE_CLIENT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CODE_AGENCE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="NUMERO_COMPTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CLE_COMPTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="INTITULE_COMPTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SECTEUR_ACTIVITE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="TYPE_ENGAGEMENT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MOTIF" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DATE_MISE_EN_PLACE" Type="DateTime" Precision="3" />
+    <Property Name="DATE_1ERE_ECHEANCE" Type="DateTime" Precision="3" />
+    <Property Name="DATE_FIN_ECHEANCE" Type="DateTime" Precision="3" />
+    <Property Name="MONTANT_PRET" Type="Double" />
+    <Property Name="MONTANT_DEBLOQUE" Type="Double" />
+    <Property Name="TAUX_INTERET" Type="Double" />
+    <Property Name="TEG" Type="Double" />
+    <Property Name="COMMISSION" Type="Double" />
+    <Property Name="TAXE" Type="Double" />
+    <Property Name="ENCOURS_CREDIT" Type="Double" />
+    <Property Name="IMPAYES_CREDIT" Type="Double" />
+    <Property Name="PERIODICITE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="NBRE_ECHEANCE" Type="Double" />
+    <Property Name="DUREE_DE_CREDIT" Type="Double" />
+    <Property Name="DOSSIERCREDIT_ETAT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="GESTIONNAIRE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EMAIL_CLIENT" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="GESTIONNAIRE_EMAIL" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MassMail">
+    <Key>
+      <PropertyRef Name="email_id" />
+    </Key>
+    <Property Name="email_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sent_status" Type="Boolean" />
   </EntityType>
   <EntityType Name="Role">
     <Key>
@@ -299,8 +391,12 @@
     <EntitySet Name="Branches" EntityType="Self.Branch" />
     <EntitySet Name="Decisions" EntityType="Self.Decision" />
     <EntitySet Name="Documents" EntityType="Self.Document" />
+    <EntitySet Name="EmailSents" EntityType="Self.EmailSent" />
+    <EntitySet Name="Financings" EntityType="Self.Financing" />
     <EntitySet Name="GestionnaireReports" EntityType="Self.GestionnaireReport" />
     <EntitySet Name="LoanApplications" EntityType="Self.LoanApplication" />
+    <EntitySet Name="LoanApproveds" EntityType="Self.LoanApproved" />
+    <EntitySet Name="MassMails" EntityType="Self.MassMail" />
     <EntitySet Name="Roles" EntityType="Self.Role" />
     <EntitySet Name="Types" EntityType="Self.Type" />
     <EntitySet Name="UserProfiles" EntityType="Self.UserProfile" />
@@ -363,8 +459,6 @@
     </FunctionImport>
     <FunctionImport Name="FetchRequests" ReturnType="Collection(CommitmentDBModel.FetchRequests_Result)" />
     <EntitySet Name="AlertRequestBackups" EntityType="CommitmentDBModel.AlertRequestBackup" />
-    <EntitySet Name="EmailSents" EntityType="CommitmentDBModel.EmailSent" />
-    <EntitySet Name="LoanApproveds" EntityType="CommitmentDBModel.LoanApproved" />
   </EntityContainer>
   <ComplexType Name="FetchAccountOfficerHistoric_Result">
     <Property Type="String" Name="first_name" Nullable="true" MaxLength="150" />
@@ -396,14 +490,14 @@
     <Property Type="Int32" Name="LateProcess" Nullable="true" />
   </ComplexType>
   <ComplexType Name="FetchRequests_Result">
+    <Property Type="String" Name="fullname" Nullable="false" MaxLength="231" />
+    <Property Type="String" Name="email" Nullable="true" MaxLength="80" />
+    <Property Type="String" Name="responsable_email" Nullable="true" MaxLength="100" />
     <Property Type="DateTime" Name="start_date" Nullable="true" />
     <Property Type="DateTime" Name="end_date" Nullable="true" />
     <Property Type="String" Name="alert_frequence" Nullable="true" MaxLength="20" />
     <Property Type="String" Name="alert_frequence_periodicity" Nullable="true" MaxLength="20" />
     <Property Type="String" Name="decisions" Nullable="true" MaxLength="Max" />
-    <Property Type="String" Name="fullname" Nullable="false" MaxLength="231" />
-    <Property Type="String" Name="email" Nullable="true" MaxLength="80" />
-    <Property Type="String" Name="responsable_email" Nullable="true" MaxLength="100" />
     <Property Type="String" Name="decision_desc" Nullable="true" MaxLength="250" />
     <Property Type="String" Name="financing_type_name" Nullable="true" MaxLength="100" />
     <Property Type="String" Name="loan_description" Nullable="true" MaxLength="120" />
@@ -411,6 +505,32 @@
     <Property Type="Int32" Name="customer_no" Nullable="true" />
     <Property Type="String" Name="customer_fullname" Nullable="true" MaxLength="150" />
     <Property Type="Int32" Name="case_id" Nullable="false" />
+    <Property Type="DateTime" Name="next_alert_date" Nullable="true" />
+    <Property Type="DateTime" Name="next_action_date" Nullable="true" />
+    <Property Type="Int32" Name="nb_occurence" Nullable="true" />
+    <Property Type="Int32" Name="nb_occurence_action" Nullable="true" />
+    <Property Type="String" Name="CODE_AGENCE" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="NUMERO_COMPTE" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="CLE_COMPTE" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="INTITULE_COMPTE" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="SECTEUR_ACTIVITE" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="TYPE_ENGAGEMENT" Nullable="true" MaxLength="255" />
+    <Property Type="DateTime" Name="DATE_MISE_EN_PLACE" Nullable="true" />
+    <Property Type="DateTime" Name="DATE_1ERE_ECHEANCE" Nullable="true" />
+    <Property Type="DateTime" Name="DATE_FIN_ECHEANCE" Nullable="true" />
+    <Property Type="String" Name="MONTANT_DEBLOQUE" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ENCOURS_CREDIT" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="IMPAYES_CREDIT" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="PERIODICITE" Nullable="true" MaxLength="255" />
+    <Property Type="Double" Name="NBRE_ECHEANCE" Nullable="true" />
+    <Property Type="String" Name="GESTIONNAIRE" Nullable="true" MaxLength="255" />
+    <Property Type="String" Name="EMAIL_CLIENT" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="GESTIONNAIRE_EMAIL" Nullable="true" MaxLength="250" />
+    <Property Type="String" Name="application_id" Nullable="false" MaxLength="100" />
+    <Property Type="Boolean" Name="status" Nullable="true" />
+    <Property Type="DateTime" Name="triggered_date" Nullable="true" />
+    <Property Type="DateTime" Name="end_date_action" Nullable="true" />
+    <Property Type="DateTime" Name="due_date_action" Nullable="true" />
   </ComplexType>
   <EntityType Name="AlertRequestBackup">
     <Key>
@@ -435,60 +555,5 @@
     <Property Name="triggered_date" Type="DateTime" Precision="0" />
     <Property Name="created_at" Type="DateTime" Precision="0" />
     <Property Name="backup_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-  </EntityType>
-  <EntityType Name="EmailSent">
-    <Key>
-      <PropertyRef Name="email_id" />
-    </Key>
-    <Property Name="email_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="start_date" Type="DateTime" Precision="0" />
-    <Property Name="end_date" Type="DateTime" Precision="0" />
-    <Property Name="alert_frequence" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="alert_frequence_periodicity" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="decisions" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="fullname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="responsable_email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="tracking_officer" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="decision_desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="financing_type_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="loan_description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="loan_amount" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="customer_no" Type="Int32" />
-    <Property Name="customer_fullname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="case_id" Type="Int32" />
-    <Property Name="sent_date" Type="DateTime" Precision="3" />
-  </EntityType>
-  <EntityType Name="LoanApproved">
-    <Key>
-      <PropertyRef Name="NUMERO_DOSSIER" />
-    </Key>
-    <Property Name="NUMERO_DOSSIER" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="CODE_CLIENT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="CODE_AGENCE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="NUMERO_COMPTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="CLE_COMPTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="INTITULE_COMPTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="SECTEUR_ACTIVITE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="TYPE_ENGAGEMENT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="MOTIF" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="DATE_MISE_EN_PLACE" Type="DateTime" Precision="3" />
-    <Property Name="DATE_1ERE_ECHEANCE" Type="DateTime" Precision="3" />
-    <Property Name="DATE_FIN_ECHEANCE" Type="DateTime" Precision="3" />
-    <Property Name="MONTANT_PRET" Type="Double" />
-    <Property Name="MONTANT_DEBLOQUE" Type="Double" />
-    <Property Name="TAUX_INTERET" Type="Double" />
-    <Property Name="TEG" Type="Double" />
-    <Property Name="COMMISSION" Type="Double" />
-    <Property Name="TAXE" Type="Double" />
-    <Property Name="ENCOURS_CREDIT" Type="Double" />
-    <Property Name="IMPAYES_CREDIT" Type="Double" />
-    <Property Name="PERIODICITE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="NBRE_ECHEANCE" Type="Double" />
-    <Property Name="DUREE_DE_CREDIT" Type="Double" />
-    <Property Name="DOSSIERCREDIT_ETAT" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="GESTIONNAIRE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="EMAIL_CLIENT" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="GESTIONNAIRE_EMAIL" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

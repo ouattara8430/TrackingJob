@@ -12,14 +12,10 @@ namespace TrackingJob.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class ActivityLog
+    public partial class MassMail
     {
-        public int log_id { get; set; }
-        public string action_name { get; set; }
-        public string action_description { get; set; }
-        public Nullable<System.DateTime> log_date { get; set; }
-        public Nullable<int> userId { get; set; }
-    
-        public virtual UserProfile UserProfile { get; set; }
+        public int email_id { get; set; }
+        public string email { get; set; }
+        public Nullable<bool> sent_status { get; set; }
     }
 }

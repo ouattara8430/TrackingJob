@@ -12,14 +12,10 @@ namespace TrackingJob.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class ActivityLog
+    public partial class Financing
     {
-        public int log_id { get; set; }
-        public string action_name { get; set; }
-        public string action_description { get; set; }
-        public Nullable<System.DateTime> log_date { get; set; }
-        public Nullable<int> userId { get; set; }
-    
-        public virtual UserProfile UserProfile { get; set; }
+        public int financing_id { get; set; }
+        public string financing_type { get; set; }
+        public string financing_type_names { get; set; }
     }
 }

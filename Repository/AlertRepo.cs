@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -100,37 +101,8 @@ namespace TrackingJob.Repository
                 db = new CommitmentDBEntities();
                 var request = db.AlertRequests.Where( x => x.case_id == case_id ).FirstOrDefault();
                 if(request != null ) {
-
-                    // save old data
-                    //AlertRequestBackup backup = new AlertRequestBackup {
-                    //    case_id = request.case_id,
-                    //    userId = request.userId,
-                    //    start_date = request.start_date,
-                    //    end_date = request.end_date,
-                    //    due_date = request.due_date,
-                    //    alert_frequence = request.alert_frequence,
-                    //    alert_frequence_periodicity = request.alert_frequence_periodicity,
-                    //    action_frequence = request.action_frequence,
-                    //    alert_action_periodicity = request.alert_action_periodicity,
-                    //    status = request.status,
-                    //    executed_by = request.executed_by,
-                    //    decisions = request.decisions,
-                    //    decision_id = request.decision_id,
-                    //    due_date_action = request.due_date_action,
-                    //    end_date_action = request.end_date_action,
-                    //    application_id = request.application_id,
-                    //    triggered_date = request.triggered_date,
-                    //    created_at = request.created_at
-                    //};
-
-                    //// save
-                    //db.AlertRequestBackups.Add(backup);
-                    //db.SaveChanges();
-
-                    // update request
-                    //request.start_date = request.start_date.Value.AddDays( frequence );
-                    request.start_date = start_date;
-
+                    request.next_alert_date = start_date;
+                    request.nb_occurence = request.nb_occurence - 1;
 
                     db.Entry( request ).State = EntityState.Modified;
                     int res = db.SaveChanges();
@@ -221,8 +193,7 @@ namespace TrackingJob.Repository
             try {
                 db = new CommitmentDBEntities();
                 EmailSent email = new EmailSent {
-                    start_date = request.start_date,
-                    //end_date = DateTime.ParseExact( request.end_date, "yyyy-MM-dd", culture ),
+                    start_date = request.next_alert_date,
                     end_date = request.end_date,
                     alert_frequence = request.alert_frequence,
                     alert_frequence_periodicity = request.alert_frequence_periodicity,
@@ -281,6 +252,25 @@ namespace TrackingJob.Repository
                 ErrorLog.LogWrite( "Error message: " + ex.Message );
                 return false;
             }
+        }
+
+        public static string SendToAccountOfficer(string status, string file, Request request, int occurence_total)
+        {
+            string email_body = string.Empty;
+            
+            email_body = File.ReadAllText(file);
+            email_body = email_body.Replace("{{customer_name}}", request.customer_fullname); //Intitule du compte
+            email_body = email_body.Replace("{{account_no}}", request.NUMERO_COMPTE); //Numéro de compte
+            email_body = email_body.Replace("{{rib_key}}", request.CLE_COMPTE); // cle rib
+            email_body = email_body.Replace("{{loan_number}}", request.application_id); //No Prêt
+            email_body = email_body.Replace("{{amount_due_date}}", request.IMPAYES_CREDIT.ToString()); //Montant pret
+            email_body = email_body.Replace("{{financing_type}}", request.TYPE_ENGAGEMENT); //Objet financement
+            email_body = email_body.Replace("{{actions}}", request.decisions); //Action 
+            email_body = email_body.Replace("{{due_date}}", request.next_action_date.Value.ToString("dd/MM/yyyy")); //Échéance 
+            email_body = email_body.Replace("{{due_no}}", request.nb_occurence_action.ToString() + "/" + occurence_total.ToString()); //Occurence 
+                                                                                                                                        //email_body = email_body.Replace("{{task_no}}", (item.DUREE_DE_CREDIT - item.NBRE_ECHEANCE).ToString() + "/" + item.DUREE_DE_CREDIT);
+
+            return email_body;
         }
     }
 }
